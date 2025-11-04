@@ -1,8 +1,21 @@
-Connor & Ethan:
-- Look into SIR models
-- Start coding up the simpler / more complex SIR model
-- Simpler model: sugar, yeast, byproduct
-- Complex model: starch, sugar, oxygen, yeast, byproduct
+Everyone:
+- Look for datasets
+
+Ethan:
+- Write paper sections
+- Get paper setup
+- Fill out details in model
+
+Connor:
+- Write paper sections
+- Ensure that we can commit / edit paper together
 
 Jackson:
-- Work on Lotka consumer-resource model
+- Write paper sections
+- Find ideal constants, find cool but bad examples
+
+Paper:
+- Analysis - look for ideal starting points
+
+Ideas:
+- Try a model where we let the sugar form then add the yeast later
