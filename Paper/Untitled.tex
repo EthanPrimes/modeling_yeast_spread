@@ -1,0 +1,88 @@
+%%
+%%                  TEMPLATE for Math 436 project report
+%%
+\documentclass[11pt]{amsart}
+%%% WARNING: Do NOT change the page size, fonts, or margins!  Penalties will apply.
+
+
+\usepackage{graphicx}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{placeins} %enables \FloatBarrier, which prevents figures and tables from going below it.
+\usepackage{hyperref} %makes cross references into hyperlinks. 
+
+ 
+
+%%% WARNING: Do NOT change the page size, fonts, or margins!  Penalties will apply.
+%%% WARNING: Do NOT change the page size, fonts, or margins!  Penalties will apply.
+
+\begin{document}
+
+\title{Place title of Group Project Here}
+\author{Place Names of Group Members Here}
+
+% Change the date to match the date you actually wrote this paper
+\date{4 October 2024} % or use \today
+
+\maketitle % this actually makes the title
+
+\begin{abstract}
+Place abstract here. The abstract summarizes in one paragraph the main question and conclusions draw from your investigation.
+\end{abstract}
+
+%% First Section
+\section{Background/Motivation}
+
+Background/Motivation and statement of the problem go here. 
+
+Give an adequate explanation of the background for the problem that your group is considering. Explain why this problem is important, and what techniques/methods have been previously used (if any) for this problem or similar ones. If you are deriving and analyzing it for a novel phenomenon you don't need to spend much time on this, but if you are modifying an existing model or reviewing something that is known about a particular model for instance, then you should spend much more time reviewing what is known. This review should help the reader know how your results fit in the greater scheme of things and the impacts that your conclusions/results will have on the bigger picture. 
+
+
+Also reference articles and sources \cite{Vandermeersch} that are relevant or that you used when learning and/or thinking about your project.
+
+\begin{figure}[htb]
+\begin{center} %Put your images in a figure like this
+\includegraphics[width=\textwidth]{Myfig.pdf} % Better to make them pdfs than png or gif or jpeg
+\end{center}
+\caption{Plots should be high resolution (pdf 300dpi), uncluttered, a reasonable size, and easily readable and understandable.  All figures should have a complete caption that helps the reader make sense of the figure even if they haven't read the paper yet. Here is an example: This figure shows the risk or mean squared error (in black) of for a generic family of regression models as a function of model complexity (the number of free parameters in the model).  The generalized aliasing decomposition shows that the risk is the sum of three parts: Model insufficiency (red), Data insufficiency (green), and Aliasing (blue).  Model insufficiency is monotonically decreasing as a function of complexity, Data insufficiency vanishes when the number of parameters is less than the number of training points (the classical regime), but increases monotonically in the modern regime (where the number of parameters is greater than the number of data points).  Aliasing generally increases up to the interpolation threshold and decreases thereafter, converging to zero almost surely as the number of parameters goes to infinity.  
+}
+\label{fig:MeanSquaredError} % for automatic cross referencing
+\end{figure}
+
+
+
+%% Second Section 
+\section{Modeling}
+
+ The primary aspect of the project is the modeling of the chosen phenomenon. If your group's repeated attempts resulted in abject failure, or your group succeeded, detail them in this section. Be sure to account for the various attempted models and why they were not appropriate. Include numerical simulations for each attempted model.  Reference figures and plots, like Figure~\ref{fig:MeanSquaredError}.
+
+
+%% Third Section
+\section{Results}
+
+Clearly and succinctly state and describe the conclusions that you can draw from the model you have achieved (or the many failed attempts). Does your model(s) perform well quantitatively or qualitatively?
+
+%%Fourth Section
+\section{Analysis/Conclusions}
+
+Discuss the appropriateness of the techniques/methods you employed in modeling. Did your group appropriately model the chosen phenomenon? If not, what different steps could you have taken if you had more time? What did you learn about the techniques/method that were used in the group project? If your model was successful, what additional insight/conclusions could you obtain from it? For instance, if you had a successfully modified SIR model, how might it affect different government policy? If you had a successful model for the spread of inaccurate information on social media, how might it be implemented to help reduce the spread of inaccurate information?
+
+
+
+This part should all be done before you get to \emph{page 11}.  The bibliography can spill on to page 11, but we won't read text that goes past page 10.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bibliography below
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\FloatBarrier % Keep the figures from being put after the bibliography
+\newpage
+%% If using bibtex, leave this uncommented
+\bibliography{refs} %if using bibtex, call your bibtex file refs.bib
+\bibliographystyle{alpha}
+
+%% If not using bibtex, comment out the previous two lines and uncomment those below
+%\begin{thebibliography}{99}
+%\bibitem{Vandermeersch} First reference goes here
+%\end{thebibliography}
+
+\end{document}
