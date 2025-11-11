@@ -1,2 +1,12 @@
+# Virtual environments
 venv/
 .venv/
+
+# LaTeX auxiliary build files
+Paper/*.aux
+Paper/*.fdb_latexmk
+Paper/*.fls
+Paper/*.log
+Paper/*.out
+Paper/*.synctex.gz
+Paper/*.pdf
