@@ -7,6 +7,7 @@ Ethan:
 - Fill out details in model
 
 Connor:
+- Send email asking for data from paper
 - Write paper sections
 - Ensure that we can commit / edit paper together
 
