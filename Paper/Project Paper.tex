@@ -5,6 +5,8 @@
 %%% WARNING: Do NOT change the page size, fonts, or margins!  Penalties will apply.
 
 
+% \usepackage{chemformula}
+\usepackage[version=4]{mhchem}
 \usepackage{graphicx}
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{placeins} %enables \FloatBarrier, which prevents figures and tables from going below it.
@@ -17,17 +19,17 @@
 
 \begin{document}
 
-\title{Place title of Group Project Here}
+\title{Modeling Yeast Spread in Bread Dough}
 \author{Connor McBride, Ethan Palenske, Jackson Pond}
 
 % Change the date to match the date you actually wrote this paper
 \date{19 November 2025} % or use \today
 
-\maketitle % this actually makes the title
-
 \begin{abstract}
 Place abstract here. The abstract summarizes in one paragraph the main question and conclusions draw from your investigation.
 \end{abstract}
+
+\maketitle % this actually makes the title
 
 %% First Section
 \section{Background/Motivation}
@@ -48,6 +50,24 @@ Also reference articles and sources \cite{Vandermeersch} that are relevant or th
 % \label{fig:MeanSquaredError} % for automatic cross referencing
 % \end{figure}
 
+
+\subsection{The Chemistry of Bread}
+\;
+\par There are four primary ingredients in bread dough: flour, water, salt, and yeast. 
+
+- Go over the different ingredients, how they impact one another, different phases of the chemical reactions, etc.
+
+\par Yeast undergoes two primary phases within bread. The first is aerobic respiration, where yeast consumes oxygen and sugar and produces carbon dioxide and ATP, which is a molecule that stores energy for cells.
+\[
+\ce{6O_2} + \ce{C_6H_{12}O_6} \to \ce{6CO_2} + \ce{6H_2O} + \ce{ATP}.
+\]
+
+\par In the second phase, which occurs once the oxygen in the bread is exhausted, yeast consumes glucose and begins producing ethanol instead of water as a biproduct.
+\[
+\ce{C_6H_{12}O_6} \to \ce{2CO_2} + \ce{2C_2H_5OH} + \ce{ATP}.
+\]
+
+\par Some of our models sought to incorporate this two-phase structure.
 
 
 %% Second Section 

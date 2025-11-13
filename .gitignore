@@ -10,3 +10,7 @@ Paper/*.log
 Paper/*.out
 Paper/*.synctex.gz
 Paper/*.pdf
+
+# Mac files
+.DS_Store
+Paper/.DS_Store
