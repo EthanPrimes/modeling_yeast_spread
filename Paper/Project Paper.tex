@@ -76,9 +76,7 @@ The primary aspect of the project is the modeling of the chosen phenomenon. If y
 
 \subsection*{Simple Compartmental Model}
 
-\par The goal of the first model is to get a baseline for 
-
-We also hope that the model is physically accurate, in that the amount of yeast and byproducts increase over time while the amount of sugar decreases. For this model we used a simple compartmental model with sugar, yeast, and byproducts as our three compartments. The model's differential equation is given by
+\par This was the simplest of the models we implement. The goal was to get a baseline for future models and to see if we can fit real-world data with a simple compartmental model. If this did not fit data well, we at least hoped that the model would be qualitatively accurate, in that the amount of yeast and byproducts increase over time while the amount of sugar decreases. We used sugar, yeast, and byproducts as our three compartments. The model's differential equation is given by
 \begin{align*}
     \dot S &= -\alpha S Y\\
     \dot Y &= \beta S Y - \gamma Y\\
@@ -86,7 +84,7 @@ We also hope that the model is physically accurate, in that the amount of yeast 
 \end{align*}
 where $\alpha, \beta, \gamma$ and $\delta$ are constants. In particular, $\alpha$ controls the quantity of sugar eaten by yeast in each interaction, $\beta$ controls the reproduction rate of yeast as it consumes sugar, $\gamma$ controls the death rate of yeast, and $\delta$ controls the rate at which byproducts are produced as yeast consumes sugar.
 
-\par Due to the simplicity of this model, we did not attempt to justify the constants through physical explanations.
+\par Due to the simplicity of this model, we do not attempt to justify values of the constants through physical explanations.
 
 % \includegraphics[scale=0.5]{}
 
