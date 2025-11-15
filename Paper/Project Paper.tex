@@ -108,9 +108,12 @@ Similarly, the yeast growth and fermentation are based on growth rates and yield
     \dot{P} &= Y_{P/S} (-\dot{S}),
 \end{align*}
 where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_{P/S}$ denotes the product yield of yeast per gram of sugar. Plotting for $t \in [0, 10]$, the plot of the solution is given by 
-\begin{center}
+\begin{figure}[htbp]
+    \centering
     \includegraphics[scale=0.6]{monod_categorical.png}
-\end{center}
+    \caption{Monod categorical model}
+    \label{fig:monod_categorical}
+\end{figure}
 We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units g/L). We also suppose that $K_s = 0.6$, $Y_{X/S} = 0.1$, and $Y_{P/S} = 1$. 
 
 \subsection*{KM Mechanistic}
