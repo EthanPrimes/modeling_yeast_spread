@@ -34,17 +34,9 @@ Place abstract here. The abstract summarizes in one paragraph the main question 
 %% First Section
 \section{Background/Motivation}
 
+\par The primary question this paper seeks to answer is determining the sorts of models that accurately match the chemical reactions that yeast undergo within bread. Yeast interacts in complicated ways with the other ingredients in bread, and even with its own byproducts. We also want to verify if existing SIR and other pandemic models can accurately mimic the spread of yeast, and if not, what factors make these models no longer accurate. Determining the optimal initial conditions (quantities of yeast, water, etc.) and how these affect the growth is a secondary focus of this paper.
 
-Background/Motivation and statement of the problem go here.
-
-\par Breadmaking is a complicated and 
-
-Give an adequate explanation of the background for the problem that your group is considering. Explain why this problem is important, and what techniques/methods have been previously used (if any) for this problem or similar ones. If you are deriving and analyzing it for a novel phenomenon you don't need to spend much time on this, but if you are modifying an existing model or reviewing something that is known about a particular model for instance, then you should spend much more time reviewing what is known. This review should help the reader know how your results fit in the greater scheme of things and the impacts that your conclusions/results will have on the bigger picture.
-
-\par The primary question this paper seeks to answer is determining the sorts of models that accurately match the chemical reactions that yeast undergo. Determining the optimal initial conditions (quantities of yeast, salt, etc.) and how these affect the growth is also secondary focus of this paper. We also want to verify if modified SIR and other pandemic models can accurately mimic the spread of yeast, and if not, what factors make these models no longer accurate.
-
-\par \textbf{WE NEED TO MENTION THE MODELS / TECHNIQUES THAT WERE USED BEFORE US TO MODEL THIS PROBLEM}
-
+\par \textbf{TALK ABOUT IMPACT}
 
 % \begin{figure}[htb]
 % \begin{center} %Put your images in a figure like this
@@ -75,13 +67,31 @@ Give an adequate explanation of the background for the problem that your group i
 
 \par Some of the more advanced models in this paper sought to incorporate this two-phase structure.
 
+\par \textbf{WE NEED TO MENTION THE MODELS / TECHNIQUES THAT WERE USED BEFORE US TO MODEL THIS PROBLEM}
+
 
 %% Second Section 
 \section{Modeling}
 
-The primary aspect of the project is the modeling of the chosen phenomenon. If your group's repeated attempts resulted in abject failure, or your group succeeded, detail them in this section. Be sure to account for the various attempted models and why they were not appropriate. Include numerical simulations for each attempted model.  Reference figures and plots, like Figure~\ref{fig:MeanSquaredError}.
+The primary aspect of the project is the modeling of the chosen phenomenon. If your group's repeated attempts resulted in abject failure, or your group succeeded, detail them in this section. Be sure to account for the various attempted models and why they were not appropriate. Include numerical simulations for each attempted model. Reference figures and plots, like Figure~\ref{fig:MeanSquaredError}.
 
-\subsection*{Compartmental Model}
+\subsection*{Simple Compartmental Model}
+
+\par The goal of the first model is to get a baseline for 
+
+We also hope that the model is physically accurate, in that the amount of yeast and byproducts increase over time while the amount of sugar decreases. For this model we used a simple compartmental model with sugar, yeast, and byproducts as our three compartments. The model's differential equation is given by
+\begin{align*}
+    \dot S &= -\alpha S Y\\
+    \dot Y &= \beta S Y - \gamma Y\\
+    \dot B &= \delta S Y,
+\end{align*}
+where $\alpha, \beta, \gamma$ and $\delta$ are constants. In particular, $\alpha$ controls the quantity of sugar eaten by yeast in each interaction, $\beta$ controls the reproduction rate of yeast as it consumes sugar, $\gamma$ controls the death rate of yeast, and $\delta$ controls the rate at which byproducts are produced as yeast consumes sugar.
+
+\par Due to the simplicity of this model, we did not attempt to justify the constants through physical explanations.
+
+% \includegraphics[scale=0.5]{}
+
+\par 
 
 \subsection*{Compartmental Model with Monod Equation}
 We now seek to incorporate the Monod equation into a compartmental model. The Monod equation models the growth of a microorganism based on the concentration of a limiting substance. \cite{monod_1} The standard form of the Monod equation is given by 
