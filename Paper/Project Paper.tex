@@ -11,6 +11,7 @@
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{placeins} %enables \FloatBarrier, which prevents figures and tables from going below it.
 \usepackage{hyperref} %makes cross references into hyperlinks. 
+\graphicspath{ {./images/} }
 
 
 %%% WARNING: Do NOT change the page size, fonts, or margins!  Penalties will apply.
@@ -91,7 +92,27 @@ where $\alpha, \beta, \gamma$ and $\delta$ are constants. In particular, $\alpha
 \par 
 
 \subsection*{Compartmental Model with Monod Equation}
-We now seek to incorporate the Monod equation into a compartmental model. The Monod equation models the growth of a microorganism based on the concentration of a limiting substance. \cite{monod_1}
+We now seek to incorporate the Monod equation into a compartmental model. The Monod equation models the growth of a microorganism based on the concentration of a limiting substance. \cite{monod_1} The standard form of the Monod equation is given by 
+\[
+    \mu = \mu_{\text{max}} \frac{S}{K_s + S},
+\]
+where $\mu$ is the growth rate of a microorganism, $\mu_{\text{max}}$ is the maximum growth rate of the microorganism, $S$ is the concentration of the limiting substance for growth, and $K_s$ is the ``half-velocity'' constant (the value of $S$ when $\mu / \mu_{\text{max}} = 0.5)$. \cite{monod_2}
+
+Some modifications to a traditional SIR model were required in order to fit the Monod equation into a compartmental model. SIR models typically assume a closed population, but for modeling yeast fermentation, compartments don't simply flow into one another as some mass escapes the system. 
+Similarly, the yeast growth and fermentation are based on growth rates and yield coefficients, not just population flow. Let $Y$ depict the quantity of yeast, $S$ denote the quantity of sugar, and $P$ denote the byproducts produced (e.g. ethanol and $\ce{CO_2}$). The monod categorical model is given by 
+\begin{align*}
+    \dot{Y} &= \mu_{\text{max}} \frac{S}{K_s + S}Y \\
+    \dot{S} &= -\frac{1}{Y_{X/S}} \dot{Y} \\
+    \dot{P} &= Y_{P/S} (-\dot{S}),
+\end{align*}
+where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_{P/S}$ denotes the product yield of yeast per gram of sugar. Plotting for $t \in [0, 10]$, the plot of the solution is given by 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6]{monod_categorical.png}
+    \caption{Monod categorical model}
+    \label{fig:monod_categorical}
+\end{figure}
+We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units g/L). We also suppose that $K_s = 0.6$, $Y_{X/S} = 0.1$, and $Y_{P/S} = 1$. 
 
 \subsection*{KM Mechanistic}
 
