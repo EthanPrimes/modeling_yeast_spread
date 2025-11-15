@@ -123,6 +123,84 @@ We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units 
 \subsection*{KM Mechanistic}
 
 \subsection*{MacArthur Consumer-Resource}
+\par The previous models make the following simplifying assumptions: 1) That all sugar is initially available to be consumed by yeast and only decreases over time, 2) that the rate and efficacy of yeast's consumption of sugar depends only on the respective amounts of yeast sugar, and 3) that oxygen is not a resource on which yeast feeds.
+
+\par In this section, we attempt to incorporate more realistic assumptions into our model and better approximate the real dynamics of a rising loaf of dough. A more appropriate family of models to use would be Consumer-Resource models, which are designed to factor in multiple consumers and multiple replenishing resources. A special case of these models are the basic Lotka-Volterra predator-prey models, which have a single consumer and a single resource. The Consumer-Resource family of models considers the replenishment of the resource, predators' affinity for different resources (called uptake in this paper), and the yield in biomass for the consumer per unit of resource consumed. In the case considered by this paper, there is a single consumer (yeast), and two resources (sugar and oxygen). Additionally, both the uptake and yield of sugar vary with the amount of oxygen, as we will discuss.
+
+\par The general form of the MacArthur consumer-resource model for S species of consumers with concentrations $N_i$ for $i \in {1, 2, ..., S}$, and M resources with concentrations $R_{\alpha}$ for $\alpha \in {1, 2, ..., M}$ is
+\begin{align}
+\frac{dN_i}{dt} &= N_i \sum_\alpha (u_{i\alpha}(R_{\alpha}) w_{i\alpha}) - m_i \\
+\frac{dR_\alpha}{dt} &= F_{\alpha} (R_{\alpha}) - \sum_i (N_i u_{i\alpha}(R_{\alpha}))
+\end{align}
+
+\par $u_{i\alpha}$ controls the uptake of the resource by the consumer, or how quickly consumer $i$ consumes resource $\alpha$ per unit biomass. This can vary with the concentration of the resource, as it can saturate \cite{AdaptiveStrategies}, or we can keep it a simple constant. $w_{i\alpha}$ is the *yield* that resource $\alpha$ provides consumer $i$, and controls the proportion between resource $\alpha$ consumed and biomass added to consumer $i$. $m_i$ is the natural mortality rate of consumer $i$. $F_{\alpha}$ is the function that controls the replenishment of resource $\alpha$ in the absence of consumers.
+
+\par The amount of parameters and associated dimensions can be disorienting. We will provide a sort of index here of the parameters we will use in our model, and then we will detail the way each fits into our model.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l c c c}
+\hline
+\textbf{Parameter} & \textbf{Value} & \textbf{Units} & \textbf{Notes} \\ 
+\hline
+$Y$ & -- & $\frac{g_Y}{L}$ & Biomass of dry yeast per liter of dough \\
+$O$ & -- & $\frac{mmol}{L}$ & Count of $O_2$ per liter of dough \\
+$S$ & -- & $\frac{GGE}{L}$ & Grams of Glucose-Equivalent per liter of dough \\
+$C$ & -- & $\frac{mol}{L}$ & Count of $CO_2$ per liter of dough \\
+$K_O$ &  & $\frac{mmol}{L}$ & Half saturation for Oxygen \\
+$K_S$ & & $\frac{GGE}{L}$ & Half saturation for Sugar \\
+$P_S$ & & $\frac{g_S}{L}$ & Carrying capacity for sugar \\
+$r_S$ & & $\frac{1}{h}$ & Sugar logistic growth rate \\
+$f(O)$ & & $dimensionless$ & Oxygen availibility switch \\
+$w_S^{aer}$ & & $\frac{g_Y}{g_S}$ & aerobic ATP yield, very efficient
+$w_S^{ana}$ & & $\frac{g_Y}{g_S}$ & anaerobic ATP yield, inefficient
+$w_O$ & & $\frac{g_Y}{mmol}$ & Oxygen yield
+$c_S$ & &  $\frac{L}{g_Yh}$ & Maximum Sugar uptake, the fastest yeast processes sugar per unit biomass
+$u_S$ & & $dimensionless$ & Monod equation describing instantaneous uptake of sugar
+$c_O$ & & $\frac{L}{g_Yh}$ & Oxygen uptake, how quickly yeast processes Oxygen per unit biomass
+\hline
+\end{tabular}
+\caption{Example table.}
+\label{tab:example}
+\end{table}
+
+\subsection*{Uptake}
+\par # FILL OUT
+
+\subsection*{Decrease and Replenishment of Resources}
+\par Ordinarily, and in our hyptothetical experiment, there is no baker's sugar added to the dough. The sugar present is tied up in the flour. As discussed in a previous section, when the flour gets wet and is kneaded, enzymes in the flour go to work breaking down the sugar--rather than all the sugar being available at once, it replenishes logistically. Therefore we must add a replenishing term to our change of sugar equation. The change in sugar equation becomes
+$$\frac{dS}{dt} = r_S S (1 - \frac{S}{P_S}) - c_S Y S$$
+where $\frac{dS}{dt}$ is the change in sugar over time in $\frac{GGE}{L \cdot h}$, $- u_S^{S}(S) Y$ is instantaneous amount of sugar metabolized by yeast, and $r_S S (1 - \frac{S}{P_S})$ is the logistic replenishment term, where $r_S$ is the logistic growth constant and $P_S$ is the total amount of sugar in the loaf, available or unavailable.  
+
+\par **NOTE:** We should think about this. Is it logistic? Shouldn't the carrying capacity be changing because there is ever less sugar? If the yeast disappeared at some point, the sugar would no longer be approaching the same limit.
+
+\par Since oxygen is not replenished, its change equation only has a consumption term.
+$$\frac{dO}{dt} = -c_O O Y$$
+
+\subsection*{Yield}
+\par Additionally, the yield sugar provides yeast varies with the amount of oxygen available. When oxygen is plentiful, yeast metabolizes sugar aerobically, which is both quicker and creates more energy for the yeast to grow. When oxygen is low, yeast metabolizes the sugar less anaerobically, which is less efficient. Our model should reflect this--a relatively short burst of growth until oxygen is depleted, and then slow, anaerobic growth until the supply of sugar is exhausted. The anaerobic metabolism creates $CO_2$ and ethanol as byproducts, and is called fermentation. In our model, we want to include a smooth switch between aerobic and anaerobic metabolism. We accomplish this via a switching function, which we name $f$ in our model.
+$$f(O) = \frac{O}{K_O + O}$$
+\par Where $O$ is the amount of oxygen and $K_O$ is the half-saturation constant, where yeast behaves 50 aerobically and 50 anaerobically. The full effective yield term, which controls the yield that sugar provides the yeast for a given amount of oxygen, is the following.
+$$w_S^{eff} = [w_S^{ana}​+(w_S^{aer}​−w_S^{ana}​)f(O)]$$
+\par Thus, when $O \gg K_O$, $f(O) \approx 1$, and $w_S^{eff} \approx w_S^{aer}$ indicating fully aerobic yield. Likewise, when $O \ll K_O$, $f(O) \approx 0$, and $w_S^{eff} \approx w_S^ana$, indicating fully anaerobic yield. 
+
+\subsection*{Byproduct}
+\par The $CO_2$ created during this process exists outside the consumer resource relationship, and is simply stoichiometrically related to the rate of anaerobic sugar consumption. Since our $f(O)$ function gives the aerobic fraction of sugar metabolism, $1 - f(O)$ will be the anaerobic fraction. So the instantaneous rate of anaerobic sugar consumption is 
+
+$$(1 - f(O))u_S(S)Y$$
+
+\par And gives grams per Liter per Hour. Since, in this reaction, one gram becomes .0111 mols of $CO_2$, we can multiply this by .0111 to get instantaneous rate of production of CO_2, in mols per liter.
+
+\subsection*{Final Form}
+\par By assembling these pieces into the general MacArthur consumer resource model found above, we have the following ODE.
+
+$$\frac{dY}{dt} = Y \bigg[w_O c_O O + [w_S^{ana}​+(w_S^{aer}​−w_S^{ana}​)f(O)]u_S(S) - m\bigg]$$
+
+$$\frac{dO}{dt} = -c_O O Y$$
+
+$$\frac{dS}{dt} = r_S S (1 - \frac{S}{P_S}) - c_S Y S$$
+
+$$\frac{dC}{dt} = (1 - f(O))u_S(S)Y * 0.0111$$
 
 %% Third Section
 \section{Results}
@@ -133,6 +211,35 @@ Clearly and succinctly state and describe the conclusions that you can draw from
 \section{Analysis/Conclusions}
 
 Discuss the appropriateness of the techniques/methods you employed in modeling. Did your group appropriately model the chosen phenomenon? If not, what different steps could you have taken if you had more time? What did you learn about the techniques/method that were used in the group project? If your model was successful, what additional insight/conclusions could you obtain from it? For instance, if you had a successfully modified SIR model, how might it affect different government policy? If you had a successful model for the spread of inaccurate information on social media, how might it be implemented to help reduce the spread of inaccurate information?
+
+\subsection*{MacArthur Consumer-Resource}
+Unfortunately we were unable to find real-world data which we could use to evaluate this model quantitatively. Instead we will pick reasonable parameter values and evaluate the results qualitatively. 
+
+\centering
+\begin{tabular}{l c c c}
+\hline
+\textbf{Parameter} & \textbf{Value} & \textbf{units} & \textbf{Sources} \\ 
+\hline
+$Y_0$ & 5.3 & $\frac{g_Y}{L}$ &  \\
+$O_0$ & 0.25 & $\frac{mmol}{L}$ &  \\
+$S_0$ & 3-5 & $\frac{GGE}{L}$ &  \\
+$C_0$ &  & $\frac{mol}{L}$ &   \\
+$K_O$ & 0.01 - 0.03 & $\frac{mmol}{L}$ &  \\
+$K_S$ & 0.1 - 0.5 & $\frac{GGE}{L}$ &  \\
+$P_S$ & 10 - 20 & $\frac{g_S}{L}$ &  \\
+$r_S$ &  & $\frac{1}{h}$ &  \\
+$w_S^{aer}$ & 0.45 - 0.55 & $\frac{g_Y}{g_S}$ & \cite{aerobic_yield1} \cite{aerobic_yield2} \\
+$w_S^{ana}$ & 0.1 & $\frac{g_Y}{g_S}$ & \cite{anaaerobic_yield1} \cite{anaerobic_yield2} \\
+$w_O$ & 0.016 & $\frac{g_Y}{mmol}$ & \cite{02_yield1}
+$c_S$ & &  $\frac{L}{g_Yh}$ & \\
+$c_O$ & 0.1 & $\frac{L}{g_Yh}$ & \cite{o2_uptake} \\
+\hline
+\end{tabular}
+\caption{Example table.}
+\label{tab:example}
+\end{table}
+
+
 
 
 
