@@ -26,7 +26,7 @@
 \date{19 November 2025} % or use \today
 
 \begin{abstract}
-Yeast undergoes complex interactions with the other ingredients in bread dough. We sought to determine if we could use an understanding of the chemical reactions yeast undergoes to build accurate models of sugar consumption, yeast growth, and byproduct production. Similarly, we examined the results of each model to see how well they qualitatively fit our expectatoins. In this paper we build four models that estimate the lifecycle of yeast in bread. We compare the results to data from other papers and observe that our models performed surprisingly well.
+Yeast undergoes complex interactions with the other ingredients in bread dough. We sought to determine if we could use an understanding of the chemical reactions yeast undergoes to build accurate models of sugar consumption, yeast growth, and byproduct production. Similarly, we examined the results of each model to see how well they qualitatively fit our expectations. In this paper we build four models that estimate the lifecycle of yeast in bread. We compare the results to data from other papers and observe that our models performed surprisingly well.
 \end{abstract}
 
 \maketitle % this actually makes the title
@@ -209,19 +209,20 @@ Clearly and succinctly state and describe the conclusions that you can draw from
 
 \subsection*{Simple Compartmental Model}
 
-\par This model, which was by far the simplest of the models we implemented, performed surprisingly well quanititatively. It sadly does not incorporate the two-phase structure that some of the other models do, but it 
+\par This model, which was by far the simplest of the models we implemented, performed surprisingly well quanititatively. It sadly does not incorporate the two-phase structure that some of the other models do, but each category's graph looks similar to the data it trained on.
 
-\par The constants, which were computed using SciPy, were estimated to equal
+\par The constants of this model, which were computed using SciPy, were estimated to equal
 \[
 \alpha = 0.1128, \beta = 0.0178, \gamma = 0.010, \delta = 0.0475.
 \]
 
-\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanl) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta}$ should roughly equal $\frac{180.156}{2 \cdot 46.069}.$ We see that we have:
+\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanl) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta},$ which represents sugar consumption by yeast divided by ethanol production, should roughly equal $\frac{180.156}{2 \cdot 46.069}.$ We see that we have:
 \[
 \frac{\alpha}{\delta} = 2.375, \;\; \frac{180.156}{2 \cdot 46.069} = 1.955,
 \]
 yielding a $21\%$ error compared to the true value. For being such a simple model, getting a result that is this near to matching the underlying chemistry is incredible.
 
+% \par Similarly we can compute $\frac{\beta}{\alpha} = 0.1578.$ This is a ratio of how many new yeast cells are produced compared to a single interaction of yeast consuming glucose.
 
 \subsection*{Compartmental Model with Monod Equation}
 
