@@ -92,9 +92,11 @@ where $\alpha, \beta, \gamma$ and $\delta$ are constants. In particular, $\alpha
 \alpha = 0.1128, \beta = 0.0178, \gamma = 0.010, \delta = 0.0475.
 \]
 
-\par 
-
-\par Due to the simplicity of this model, we do not attempt to justify values of the constants through physical explanations. - \textbf{CHANGE THIS! ESTIMATE WHY THESE VALUES WORK}
+\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanl) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta}$ should roughly equal $\frac{180.156}{2 \cdot 46.069}.$ We see that we have:
+\[
+\frac{\alpha}{\delta} = 2.375, \;\; \frac{180.156}{2 \cdot 46.069} = 1.955,
+\]
+yielding a $21\%$ error compared to the true value. For being such a simple model, getting a result that is this near to matching the underlying chemistry is incredible.
 
 \subsection*{Compartmental Model with Monod Equation}
 We now seek to incorporate the Monod equation into a compartmental model. The Monod equation models the growth of a microorganism based on the concentration of a limiting substance. \cite{monod_1} The standard form of the Monod equation is given by 
