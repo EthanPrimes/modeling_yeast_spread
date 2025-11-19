@@ -87,16 +87,6 @@ Yeast undergoes complex interactions with the other ingredients in bread dough. 
 \end{align*}
 where $\alpha, \beta, \gamma$ and $\delta$ are constants. In particular, $\alpha$ controls the quantity of sugar eaten by yeast in each interaction, $\beta$ controls the reproduction rate of yeast as it consumes sugar, $\gamma$ controls the death rate of yeast, and $\delta$ controls the rate at which byproducts are produced as yeast consumes sugar.
 
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[scale=0.5]{images/simple_compartmental.png}
-\end{center}
-\caption{This figure shows the results of the categorical model after having the constants trained on real data. The three graphs show the three categories in the model; sugar, yeast, and byproducts - in this case, just ethanol is tracked. \cite{mechanistic}}
-\label{fig:images/simple_compartmental.png}
-\end{figure}
-
-\par The simple model fit the real-world data surprisingly well. \ref{fig:images/simple_compartmental.png}
-
 \subsection*{Compartmental Model with Monod Equation}
 We now seek to incorporate the Monod equation into a compartmental model. The Monod equation models the growth of a microorganism based on the concentration of a limiting substance. \cite{monod_1} The standard form of the Monod equation is given by 
 \[
@@ -209,11 +199,19 @@ $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y * 0.0111$$
 %% Third Section
 \section{Results}
 
-Clearly and succinctly state and describe the conclusions that you can draw from the model you have achieved (or the many failed attempts). Does your model(s) perform well quantitatively or qualitatively?
-
 \subsection*{Simple Compartmental Model}
 
-\par This model, which was by far the simplest of the models we implemented, performed surprisingly well quanititatively. It sadly does not incorporate the two-phase structure that some of the other models do, but each category's graph looks similar to the data it trained on.
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{images/simple_compartmental.png}
+\end{center}
+\caption{This figure shows the results of the categorical model after having the constants trained on real data. The three graphs show the three categories in the model; sugar, yeast, and byproducts - in this case, just ethanol is tracked. \cite{mechanistic}}
+\label{fig:images/simple_compartmental.png}
+\end{figure}
+
+\par The simple model fit the real-world data surprisingly well. \ref{fig:images/simple_compartmental.png}
+
+\par This model, which was by far the simplest of the models we implemented, performed surprisingly well quantitatively. It sadly does not incorporate the two-phase structure that some of the other models do, but each category's graph looks similar to the data it trained on.
 
 \par The constants of this model, which were computed using SciPy, were estimated to equal
 \[
