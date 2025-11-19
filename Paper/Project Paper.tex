@@ -123,7 +123,7 @@ We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units 
 \subsection*{KM Mechanistic}
 
 \subsection*{MacArthur Consumer-Resource}
-\par The previous models make the following simplifying assumptions: 1) That all sugar is initially available to be consumed by yeast and only decreases over time, 2) that the rate and efficacy of yeast's consumption of sugar depends only on the respective amounts of yeast sugar, and 3) that oxygen is not a resource on which yeast feeds.
+\par The previous models make the following simplifying assumptions: 1) That all sugar is initially available to be consumed by yeast and only decreases over time, 2) that the rate and efficacy of yeast's consumption of sugar depends only on the respective amounts of yeast and sugar, and 3) that oxygen is not a resource on which yeast feeds.
 
 \par In this section, we attempt to incorporate more realistic assumptions into our model and better approximate the real dynamics of a rising loaf of dough. A more appropriate family of models to use would be Consumer-Resource models, which are designed to factor in multiple consumers and multiple replenishing resources. A special case of these models are the basic Lotka-Volterra predator-prey models, which have a single consumer and a single resource. The Consumer-Resource family of models considers the replenishment of the resource, predators' affinity for different resources (called uptake in this paper), and the yield in biomass for the consumer per unit of resource consumed. In the case considered by this paper, there is a single consumer (yeast), and two resources (sugar and oxygen). Additionally, both the uptake and yield of sugar vary with the amount of oxygen, as we will discuss.
 
@@ -141,34 +141,38 @@ We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units 
 \centering
 \begin{tabular}{l c c c}
 \hline
-\textbf{Parameter} & \textbf{Value} & \textbf{Units} & \textbf{Notes} \\ 
+\textbf{Parameter} & \textbf{Units} & \textbf{Notes} \\ 
 \hline
-$Y$ & -- & $\frac{g_Y}{L}$ & Biomass of dry yeast per liter of dough \\
-$O$ & -- & $\frac{mmol}{L}$ & Count of $O_2$ per liter of dough \\
-$S$ & -- & $\frac{GGE}{L}$ & Grams of Glucose-Equivalent per liter of dough \\
-$C$ & -- & $\frac{mol}{L}$ & Count of $CO_2$ per liter of dough \\
-$K_O$ &  & $\frac{mmol}{L}$ & Half saturation for Oxygen \\
-$K_S$ & & $\frac{GGE}{L}$ & Half saturation for Sugar \\
-$P_S$ & & $\frac{g_S}{L}$ & Carrying capacity for sugar \\
-$r_S$ & & $\frac{1}{h}$ & Sugar logistic growth rate \\
-$f(O)$ & & $dimensionless$ & Oxygen availibility switch \\
-$w_S^{aer}$ & & $\frac{g_Y}{g_S}$ & aerobic ATP yield, very efficient \\
-$w_S^{ana}$ & & $\frac{g_Y}{g_S}$ & anaerobic ATP yield, inefficient \\
-$w_O$ & & $\frac{g_Y}{mmol}$ & Oxygen yield \\
-$c_S$ & &  $\frac{L}{g_Yh}$ & Maximum Sugar uptake, the fastest yeast processes sugar per unit biomass \\
-$u_S$ & & $dimensionless$ & Monod equation describing instantaneous uptake of sugar \\
-$c_O$ & & $\frac{L}{g_Yh}$ & Oxygen uptake, how quickly yeast processes Oxygen per unit biomass \\
+$Y$ & $\frac{g_Y}{L}$ & Dry Yeast concentration \\
+$O$ & $\frac{mmol}{L}$ & $O_2$ concentration \\
+$S$ & $\frac{GGE}{L}$ & Sugar concentration \\
+$C$ & $\frac{mol}{L}$ & Count of $CO_2$ per liter of dough \\
+$K_O$ & $\frac{mmol}{L}$ & Half saturation for Oxygen \\
+$K_S$ & $\frac{GGE}{L}$ & Half saturation for Sugar \\
+$P_S$ & $\frac{g_S}{L}$ & Carrying capacity for sugar \\
+$r_S$ & $\frac{1}{h}$ & Sugar logistic growth rate \\
+$f(O)$ & $dimensionless$ & Oxygen availibility switch \\
+$w_S^{aer}$ & $\frac{g_Y}{g_S}$ & aerobic ATP yield, very efficient \\
+$w_S^{ana}$ & $\frac{g_Y}{g_S}$ & anaerobic ATP yield, inefficient \\
+$w_O$ & $\frac{g_Y}{mmol}$ & Oxygen yield \\
+$c_S$ &  $\frac{L}{g_Yh}$ & Maximum Sugar uptake \\
+$u_S$ & $dimensionless$ & Instantaneous uptake of sugar \\
+$c_O$ & $\frac{L}{g_Yh}$ & Oxygen uptake \\
 \hline
 \end{tabular}
-\caption{Example table.}
-\label{tab:example}
+\caption{Parameter Index}
+\label{tab:paramindex}
 \end{table}
 
 \subsection*{Uptake}
-\par FILL OUT
+\par Also called affinity, uptake describes the rate at which the consumer metabolizes each resource. Uptake is a function of the available amount of the resource, and is often modeled with a Monod equation, as previously discussed. For this model, we have made the sugar uptake term a function of S using the Monod equation:
+$$u_S(S) = c_S \frac{S}{K_S \cdot S}$$
+\par Where $S$ is Sugar concentration, $c_S$ is the maximum uptake of sugar and $K_S$ is half saturation of sugar, or the amount of sugar where uptake is at half of the maximum rate. Thus the sugar uptake climbs quickly at below half saturation, and then grows more slowly.
+\par The Oxygen uptake term is much simpler, as the maximum amount of Oxygen in the loaf is very low, and the change in concentration does not warrant a changing uptake term. Thus the uptake term for oxygen is much simpler, with just a constant controling it.
+$$u_O(O) = c_O O$$
 
 \subsection*{Decrease and Replenishment of Resources}
-\par Ordinarily, and in our hyptothetical experiment, there is no baker's sugar added to the dough. The sugar present is tied up in the flour. As discussed in a previous section, when the flour gets wet and is kneaded, enzymes in the flour go to work breaking down the sugar--rather than all the sugar being available at once, it replenishes logistically. Therefore we must add a replenishing term to our change of sugar equation. The change in sugar equation becomes
+\par Ordinarily, and in our hypothetical experiment, there is no baker's sugar added to the dough. The sugar present is tied up in the flour. As discussed in a previous section, when the flour gets wet and is kneaded, enzymes in the flour go to work breaking down the sugar--rather than all the sugar being available at once, it replenishes logistically. Therefore we must add a replenishing term to our change of sugar equation. The change in sugar equation becomes
 $$\frac{dS}{dt} = r_S S (1 - \frac{S}{P_S}) - c_S Y S$$
 where $\frac{dS}{dt}$ is the change in sugar over time in $\frac{GGE}{L \cdot h}$, $- u_S^{S}(S) Y$ is instantaneous amount of sugar metabolized by yeast, and $r_S S (1 - \frac{S}{P_S})$ is the logistic replenishment term, where $r_S$ is the logistic growth constant and $P_S$ is the total amount of sugar in the loaf, available or unavailable.  
 
@@ -231,26 +235,9 @@ yielding a $21\%$ error compared to the true value. For being such a simple mode
 
 
 \subsection*{MacArthur Consumer-Resource}
+Unfortunately we were unable to find real-world data which we could use to evaluate this model quantitatively. Instead we will pick reasonable parameter values and evaluate the results qualitatively. Using parameters in the ranges in Table 3, we obtain Figure .
 
-%%Fourth Section
-\section{Analysis/Conclusions}
-
-Discuss the appropriateness of the techniques/methods you employed in modeling. Did your group appropriately model the chosen phenomenon? If not, what different steps could you have taken if you had more time? What did you learn about the techniques/method that were used in the group project? If your model was successful, what additional insight/conclusions could you obtain from it? For instance, if you had a successfully modified SIR model, how might it affect different government policy? If you had a successful model for the spread of inaccurate information on social media, how might it be implemented to help reduce the spread of inaccurate information?
-
-
-\subsection*{Simple Compartmental Model}
-
-
-\subsection*{Compartmental Model with Monod Equation}
-
-
-\subsection*{KM Mechanistic Model}
-
-
-\subsection*{MacArthur Consumer-Resource}
-Unfortunately we were unable to find real-world data which we could use to evaluate this model quantitatively. Instead we will pick reasonable parameter values and evaluate the results qualitatively. 
-
-\begin{figure}
+\begin{table}[h!]
 \centering
 \begin{tabular}{l c c c}
 \hline
@@ -275,14 +262,49 @@ $c_O$ & 0.1 & $\frac{L}{g_Yh}$ & \cite{o2_uptake} \\
 \end{tabular}
 \caption{Reasonable Parameter Values}
 \label{tab:param_vals}
+\end{table}
 
-\par Using these parameter values and these initial values, we can visually inspect the resulting prediction made by this model.
-
-\label{tab:example}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.49]{mcrm.png}
+    \caption{MacArthur Consumer-Resource Model Results}
+    \label{fig:mcrm}
 \end{figure}
 
+\par Using these parameter values and these initial values, we can visually inspect the resulting prediction made by this model.There is a clear aerobic phase where yeast concentration encreases very quickly, before switching to anaerobic when oxygen is depleted. $CO_2$ concentration also rises until sugar is depleted and the anaerobic phase finishes. However, the model reaches equilibrium in about 55 minutes, while in reality yeast continues to grow for much longer. 
 
-This part should all be done before you get to \emph{page 11}.  The bibliography can spill on to page 11, but we won't read text that goes past page 10.
+%%Fourth Section
+\section{Analysis/Conclusions} We attempted to model the dynamics present in a rising loaf of bread dough using four models: A simple compartmental model, a compartnmental model with a Monod Equation, a KM Mechanistic Model, and a MacArthur Consumer-Resource model, ordered in terms of complexity. 
+
+\subsection*{Appropriateness of models}
+The two compartmental models captured the changing concentrations of their assumed dynamics with surprising accuracy, considering their simplicity. The fitted simple compartmental model yielded a mere 21\% error for the glucose consumed to ethanol produced ratio. However, the assumed dynamics are quite a far cry from the dynamics of a rising loaf of bread dough. The most egregious simplifiying assumption was that all sugar is initially available and does not replenish. Fortunately experimental data that matched the assumptions validated these models nicely.
+
+\par The most complex model we attempted to use, the MacArthur Consumer-Resource model, corrected the previous simplifications by including terms to describe 1) a replenishing supply of available sugar, 2) a variable rate of sugar consumption and yield depending on the oxygen supply, and 3) metabolism of oxygen when available. Although we were unable to find or produce experimental data to validate this model, we found it satisfactory qualitatively. The phases of aerobic metabolism, anaerobic metabolism, and equilibrium are each amenable to visual inspections of the figures the model produces.
+
+\subsection{Potential improvements} Our model which most closely approximates the dynamics of fermentation in a loaf of bread dough, the MacArthur Consumer-Resource model, has several shortcomings. The most glaring is that it is not fit to experimental data, and its parameters' true values are not verified to the desired degree of accuracy. Furthermore, the model does not capture enviornmental factors such as temperature, humidity, or pressure, which are known to affect the rate of fermentation. Parameters and functions that describe uptake, yield, resource replenishment, and maintenance each in reality depend on such enviornmental factors as these. Similarly, we do not consider the effects of key added ingredients such as salt (which is known to inhibit yeast growth), or of elective added ingredients such as jalapeño and cheddar.
+
+\par Another shortcoming is the limitation of bread making practices represented in even our broadest assumptions. We do not consider a double-rising period or the effect of several intermediate "stretch and folds". Bread makers  report that small changes in the mixing, kneading, and intermediate checkpoints lead to large changes in the results of the loaf. Nonetheless, these effects are not captured in our model.
+
+\subsection*{What we learned} Chemistry! Stoichiometry! Reasoning through relationsions between compartments or consumers and resources!
+
+\subsection*{Impact} The impact of an accurate bread-rising model would be profound and far-reaching. Bread is a worldwide staple, and is much beloved by nearly all cultures. An accurate would create tremendous accessibility to consistent bread, exactly as desired by its bakers.
+
+\par Such a day is yet beyond us. By fiddling with initial values, a user can easily see the effects of changing the initial concentrations of yeast, sugar, and oxygen, and use these initial concentrations to create the desired effect while baking bread.
+
+\par Much work remains to be done.
+
+
+% \subsection*{Simple Compartmental Model}
+
+
+% \subsection*{Compartmental Model with Monod Equation}
+
+
+% \subsection*{KM Mechanistic Model}
+
+
+% \subsection*{MacArthur Consumer-Resource}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
