@@ -67,8 +67,13 @@ Yeast undergoes complex interactions with the other ingredients in bread dough. 
 
 \par Some of the more advanced models in this paper sought to incorporate this two-phase structure.
 
-\par \textbf{WE NEED TO MENTION THE MODELS / TECHNIQUES THAT WERE USED BEFORE US TO MODEL THIS PROBLEM}
-
+\par We reviewed som eexisting models for modeling yeast fermentation in the literature. The KM mechastic model was one model created to describe the dynamics of alcoholic fermentation of yeast. It is given by 
+\begin{align*}
+    \dot{x} &= \frac{\rho_1 xy}{\rho_2 + y} - \rho_3 x z - \rho_4 x \\
+    \dot{y} &= -\rho_5 xy - \rho_6 yz - \rho_7 y \\
+    \dot{z} &= \rho_8 xz + \rho_9 yz - \rho_{10} z,
+\end{align*}
+where $x(t)$, $y(t)$, and $z(t)$ describe yeast biomass concentration, glucose consumption, and ethanol production respectively. \cite{mechanistic} Each $rho_k$ value depicts a specific constant related to a specific part of the fermentation process. The plotted solution for this model is given in \ref{fig:images/km_mechanistic.png}
 
 %% Second Section 
 \section{Modeling}
@@ -111,6 +116,14 @@ where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_
 We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units g/L). We also suppose that $K_s = 0.6$, $Y_{X/S} = 0.1$, and $Y_{P/S} = 1$. 
 
 \subsection*{KM Mechanistic}
+We plot the solution for the KM Mechanistic model (\cite{mechanistic}) for $t \in [0, 5]$. Values of $\rho_k$ as given in the paper and we use initial conditions $(x_0, y_0, z_0) = (5, 200, 0.5)$ (measured in g/L).
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.6]{km_mechanistic.png}
+\end{center}
+\caption{KM Mechanistic Model Plot}
+\label{fig:images/km_mechanistic.png}
+\end{figure}
 
 \subsection*{MacArthur Consumer-Resource}
 \par The previous models make the following simplifying assumptions: 1) That all sugar is initially available to be consumed by yeast and only decreases over time, 2) that the rate and efficacy of yeast's consumption of sugar depends only on the respective amounts of yeast and sugar, and 3) that oxygen is not a resource on which yeast feeds.
