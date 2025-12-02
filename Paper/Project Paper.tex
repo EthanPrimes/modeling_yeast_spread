@@ -36,7 +36,7 @@ Yeast undergoes complex interactions with the other ingredients in bread dough. 
 
 \par The primary question this paper seeks to answer is determining the sorts of models that accurately match the chemical reactions that yeast undergo within bread. Yeast interacts in complicated ways with the other ingredients in bread, and even with its own byproducts. We also want to verify if existing SIR and other pandemic models can accurately mimic the spread of yeast, and if not, what factors make these models no longer accurate. Determining the optimal initial conditions (quantities of yeast, water, etc.) and how these affect the growth is a secondary focus of this paper.
 
-\par By having a good model for how yeast interacts with the other ingredients in bread, we will be able to better understand the breadmaking process and how to optimize initial conditions.
+\par Every breadmaker has noticed that small changes in initial dough conditions can lead to wide variations in the quality of the baked bread. By having a good model for how yeast interacts with the other ingredients in bread, we will be able to better understand the breadmaking process and how to optimize initial conditions.
 
 % \begin{figure}[htb]
 % \begin{center} %Put your images in a figure like this
@@ -220,7 +220,7 @@ $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y * 0.0111$$
 \label{fig:images/simple_compartmental.png}
 \end{figure}
 
-\par The simple model fit the real-world data surprisingly well. \ref{fig:images/simple_compartmental.png}
+\par The simple model fit the real-world data \cite{mechanistic} surprisingly well. \ref{fig:images/simple_compartmental.png}
 
 \par This model, which was by far the simplest of the models we implemented, performed surprisingly well quantitatively. It sadly does not incorporate the two-phase structure that some of the other models do, but each category's graph looks similar to the data it trained on.
 
@@ -296,7 +296,7 @@ The two compartmental models captured the changing concentrations of their assum
 
 \subsection*{What we learned} Our main takeaway was the effectiveness of relatively simple models to decently approximate complicated dynamics. We also enjoyed reasoning mathematically with chemistry, basic stoichimetry, and reasoning through relationships between compartments/consumers and resources.
 
-\subsection*{Impact} The impact of an accurate bread-rising model would be profound and far-reaching. Bread is a worldwide staple, and is much beloved by nearly all cultures. An accurate model would create tremendous accessibility to consistent bread, exactly as desired by its bakers.
+\subsection*{Impact} The impact of an accurate bread-rising model would be profound and far-reaching. Bread is a worldwide staple, and is much beloved by nearly all cultures. An accurate model would create tremendous accessibility consistently higher quality bread, exactly as desired by its bakers, despite the complexity.
 
 \par Such a day is yet beyond us. Using the models we produced, by fiddling with initial values, a user can easily see the effects of changing the initial concentrations of yeast, sugar, and oxygen, and use these initial concentrations to create the desired effect while baking bread.
 
