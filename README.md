@@ -20,3 +20,4 @@ Paper:
 
 Ideas:
 - Try a model where we let the sugar form then add the yeast later
+- We should emphasize the "instability" of bread and its difficulty for different environments/starting points. I think that would help with the more critical feedback we received.
