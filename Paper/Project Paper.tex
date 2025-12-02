@@ -36,7 +36,7 @@ Yeast undergoes complex interactions with the other ingredients in bread dough. 
 
 \par The primary question this paper seeks to answer is determining the sorts of models that accurately match the chemical reactions that yeast undergo within bread. Yeast interacts in complicated ways with the other ingredients in bread, and even with its own byproducts. We also want to verify if existing SIR and other pandemic models can accurately mimic the spread of yeast, and if not, what factors make these models no longer accurate. Determining the optimal initial conditions (quantities of yeast, water, etc.) and how these affect the growth is a secondary focus of this paper.
 
-\par By having a good model for how yeast interacts with the other ingredients in bread, we will be able to better understand the breadmaking process and how to optimize initial conditions.
+\par Every breadmaker has noticed that small changes in initial dough conditions can lead to wide variations in the quality of the baked bread. By having a good model for how yeast interacts with the other ingredients in bread, we will be able to better understand the breadmaking process and how to optimize initial conditions.
 
 % \begin{figure}[htb]
 % \begin{center} %Put your images in a figure like this
@@ -67,7 +67,7 @@ Yeast undergoes complex interactions with the other ingredients in bread dough. 
 
 \par Some of the more advanced models in this paper sought to incorporate this two-phase structure.
 
-\par We reviewed som eexisting models for modeling yeast fermentation in the literature. The KM mechastic model was one model created to describe the dynamics of alcoholic fermentation of yeast. It is given by 
+\par We reviewed some existing models for modeling yeast fermentation in the literature. The KM mechastic model was one model created to describe the dynamics of alcoholic fermentation of yeast. It is given by 
 \begin{align*}
     \dot{x} &= \frac{\rho_1 xy}{\rho_2 + y} - \rho_3 x z - \rho_4 x \\
     \dot{y} &= -\rho_5 xy - \rho_6 yz - \rho_7 y \\
@@ -110,7 +110,7 @@ where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.6]{monod_categorical.png}
-    \caption{Monod categorical model}
+    \caption{The monod categorical model.}
     \label{fig:monod_categorical}
 \end{figure}
 We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units g/L). We also suppose that $K_s = 0.6$, $Y_{X/S} = 0.1$, and $Y_{P/S} = 1$. 
@@ -121,7 +121,7 @@ We plot the solution for the KM Mechanistic model (\cite{mechanistic}) for $t \i
 \begin{center}
 \includegraphics[scale=0.6]{km_mechanistic.png}
 \end{center}
-\caption{KM Mechanistic Model Plot}
+\caption{A KM mechanistic model plot.}
 \label{fig:images/km_mechanistic.png}
 \end{figure}
 
@@ -214,7 +214,7 @@ $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y \cdot 0.0111$$
 \label{fig:images/simple_compartmental.png}
 \end{figure}
 
-\par The simple model fit the real-world data surprisingly well. \ref{fig:images/simple_compartmental.png}
+\par The simple model fit the real-world data \cite{mechanistic} surprisingly well. \ref{fig:images/simple_compartmental.png}
 
 \par This model, which was by far the simplest of the models we implemented, performed surprisingly well quantitatively. It sadly does not incorporate the two-phase structure that some of the other models do, but each category's graph looks similar to the data it trained on.
 
@@ -223,7 +223,7 @@ $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y \cdot 0.0111$$
 \alpha = 0.1128, \beta = 0.0178, \gamma = 0.010, \delta = 0.0475.
 \]
 
-\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanl) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta},$ which represents sugar consumption by yeast divided by ethanol production, should roughly equal $\frac{180.156}{2 \cdot 46.069}.$ We see that we have:
+\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanol) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta},$ which represents sugar consumption by yeast divided by ethanol production, should roughly equal $\frac{180.156}{2 \cdot 46.069}.$ We see that we have:
 \[
 \frac{\alpha}{\delta} = 2.375, \;\; \frac{180.156}{2 \cdot 46.069} = 1.955,
 \]
@@ -290,7 +290,7 @@ The two compartmental models captured the changing concentrations of their assum
 
 \subsection*{What we learned} Our main takeaway was the effectiveness of relatively simple models to decently approximate complicated dynamics. We also enjoyed reasoning mathematically with chemistry, basic stoichimetry, and reasoning through relationships between compartments/consumers and resources.
 
-\subsection*{Impact} The impact of an accurate bread-rising model would be profound and far-reaching. Bread is a worldwide staple, and is much beloved by nearly all cultures. An accurate model would create tremendous accessibility to consistent bread, exactly as desired by its bakers.
+\subsection*{Impact} The impact of an accurate bread-rising model would be profound and far-reaching. Bread is a worldwide staple, and is much beloved by nearly all cultures. An accurate model would create tremendous accessibility consistently higher quality bread, exactly as desired by its bakers, despite the complexity.
 
 \par Such a day is yet beyond us. Using the models we produced, by fiddling with initial values, a user can easily see the effects of changing the initial concentrations of yeast, sugar, and oxygen, and use these initial concentrations to create the desired effect while baking bread.
 
