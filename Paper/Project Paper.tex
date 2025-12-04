@@ -98,7 +98,7 @@ Similarly, the yeast growth and fermentation are based on growth rates and yield
     \dot{S} &= -\frac{1}{Y_{X/S}} \dot{Y} \\
     \dot{P} &= Y_{P/S} (-\dot{S}),
 \end{align*}
-where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_{P/S}$ denotes the product yield of yeast per gram of sugar. The plot of the solution is given in Figure \ref{fig:monod_categorical}.
+where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_{P/S}$ denotes the product yield of yeast per gram of sugar. We make the simplifying assumptions of not taking into account the death of yeast or non-product growth formation. The plot of the solution is given in Figure \ref{fig:monod_categorical}.
 
 \begin{figure}[h]
     \centering
@@ -207,7 +207,7 @@ $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y \cdot 0.0111$$
 \[
 \frac{\alpha}{\delta} = 2.375 \quad \frac{180.156}{2 \cdot 46.069} = 1.955,
 \]
-yielding a $21\%$ error compared to the true value. For being such a simple model, getting a result that is this near to matching the underlying chemistry is incredible.
+a $21\%$ error compared to the true value. For such a simple model, getting a result that is this near to matching the underlying chemistry is incredible.
 
 \subsection*{Compartmental Model with Monod Equation}
 We similarly fit the compartmental to the data \cite{mechanistic}. Using Scipy, we were able to estimate the coefficients as
@@ -262,12 +262,13 @@ $c_O$ & 0.1 & $L / g_Y h$ & \cite{o2_uptake} \\
 \end{figure}
 
 \par Using these parameter values and these initial values, we can visually inspect the resulting prediction made by this model. There is a clear aerobic phase where yeast concentration increases very quickly, before switching to anaerobic when oxygen is depleted. $\ce{CO_2}$ concentration also rises until sugar is depleted and the anaerobic phase finishes. However, the model reaches equilibrium in about 55 minutes, while in reality yeast continues to grow for much longer. 
+The complete code and figures used for this report can be found on GitHub \cite{modeling_yeast_spread}.
 
 %%Fourth Section
 \section{Analysis/Conclusions} We attempted to model the dynamics present in a rising loaf of bread dough using three models: A simple compartmental model, a compartmental model with a Monod Equation, and a MacArthur Consumer-Resource model, ordered in terms of complexity. 
 
 \subsection*{Appropriateness of models}
-The two compartmental models captured the changing concentrations of their assumed dynamics with surprising accuracy, considering their simplicity. The fitted simple compartmental model yielded a mere 21\% error for the glucose consumed to ethanol produced ratio. However, the assumed dynamics are far from the true dynamics of a rising loaf of bread dough. The most egregious simplifiying assumption was that all sugar is initially available and does not replenish. Fortunately experimental data that matched the assumptions validated these models nicely.
+The two compartmental models captured the changing concentrations of their assumed dynamics with surprising accuracy, considering their simplicity. The fitted simple compartmental model yielded a mere 21\% error for the glucose consumed to ethanol produced ratio. However, the assumed dynamics are far from the true dynamics of a rising loaf of bread dough. The most egregious simplifiying assumption was that all sugar is initially available and does not replenish. Fortunately experimental data that matched the assumptions validated these models.
 
 \par The most complex model we attempted to use, the MacArthur Consumer-Resource model, corrected the previous simplifications by including terms to describe a replenishing supply of available sugar, a variable rate of sugar consumption and yield depending on the oxygen supply, and metabolism of oxygen when available. Although we were unable to find or produce experimental data to validate this model, we found it satisfactory qualitatively. The phases of aerobic metabolism, anaerobic metabolism, and equilibrium are each amenable to visual inspections of the figures the model produces.
 
