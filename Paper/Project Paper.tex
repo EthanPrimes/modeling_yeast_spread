@@ -200,12 +200,12 @@ $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y \cdot 0.0111$$
 
 \par The constants of this model, which were computed using SciPy, were estimated to equal
 \[
-\alpha = 0.1128, \quad \beta = 0.0178, \quad \gamma = 0.010, \quad \delta = 0.0475.
+\alpha = 0.1128 \frac{g}{mol^2}, \; \beta = 0.0178 \frac{g}{mol^2}, \; \gamma = 0.010 \frac{g}{mol}, \; \delta = 0.0475 \frac{g}{mol^2}.
 \]
 
-\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate just with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanol) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta},$ which represents sugar consumption by yeast divided by ethanol production, should roughly equal $\frac{180.156}{2 \cdot 46.069}.$ We see that we have:
+\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate just with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanol) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta},$ which represents sugar consumption by yeast divided by ethanol production, should roughly equal $\frac{180.156 g/mol}{2 \cdot 46.069 g/mol}.$ We see that we have:
 \[
-\frac{\alpha}{\delta} = 2.375 \quad \frac{180.156}{2 \cdot 46.069} = 1.955,
+\frac{\alpha \text{ g/mol}^2}{\delta \text{ g/mol}^2} = 2.375 \quad \frac{180.156 \text{ g/mol}}{2 \cdot 46.069 \text{ g/mol}} = 1.955,
 \]
 a $21\%$ error compared to the true value. For such a simple model, getting a result that is this near to matching the underlying chemistry is incredible.
 
