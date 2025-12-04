@@ -108,17 +108,16 @@ where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_
 \end{figure}
 
 \subsection*{MacArthur Consumer-Resource}
-\par The previous models make the following simplifying assumptions: 1) That all sugar is initially available to be consumed by yeast and only decreases over time, 2) that the rate and efficacy of yeast's consumption of sugar depends only on the respective amounts of yeast and sugar, and 3) that oxygen is not a resource on which yeast feeds.
+\par The previous models make the following simplifying assumptions: that all sugar is initially available to be consumed by yeast and only decreases over time, that the rate and efficacy of yeast's consumption of sugar depends only on the respective amounts of yeast and sugar, and that oxygen is not a resource on which yeast feeds.
 
-\par In this section, we attempt to incorporate more realistic assumptions into our model and better approximate the real dynamics of a rising loaf of dough. A more appropriate family of models to use would be Consumer-Resource models, which are designed to factor in multiple consumers and multiple replenishing resources. This family of models considers the replenishment of resources, predators' affinity for different resources (called uptake in this paper), and the yield in biomass for the consumer per unit of resource consumed. In the case considered by this paper, there is a single consumer (yeast), and two resources (sugar and oxygen). Additionally, both the uptake and yield of sugar vary with the amount of oxygen, as we will discuss.
+\par In this section, we attempt to incorporate more realistic assumptions into our model. A more appropriate family of models to use would be Consumer-Resource models, which are designed to factor in multiple consumers and multiple replenishing resources. This family of models considers the replenishment of resources, predators' affinity for different resources (called uptake in this paper), and the yield in biomass for the consumer per unit of resource consumed. In the case considered by this paper, there is a single consumer (yeast), and two resources (sugar and oxygen). Additionally, both the uptake and yield of sugar vary with the amount of oxygen.
 
 \par The general form of the MacArthur consumer-resource model for S species of consumers with concentrations $N_i$ for $i \in {1, 2, ..., S}$, and M resources with concentrations $R_{\alpha}$ for $\alpha \in {1, 2, ..., M}$ is
-\begin{align}
-\frac{dN_i}{dt} &= N_i \sum_\alpha (u_{i\alpha}(R_{\alpha}) w_{i\alpha}) - m_i \\
-\frac{dR_\alpha}{dt} &= F_{\alpha} (R_{\alpha}) - \sum_i (N_i u_{i\alpha}(R_{\alpha}))
-\end{align}
-
-\par $u_{i\alpha}$ controls the uptake of the resource by the consumer, or how quickly consumer $i$ consumes resource $\alpha$ per unit biomass. This can vary with the concentration of the resource, as it can saturate \cite{AdaptiveStrategies}. $w_{i\alpha}$ is the biomass *yield* that resource $\alpha$ provides consumer $i$, and controls the proportion between resource $\alpha$ consumed and biomass added to consumer $i$. $m_i$ is the natural mortality rate of consumer $i$. $F_{\alpha}$ is the function that controls the replenishment of resource $\alpha$ in the absence of consumers.
+\begin{align*}
+    \frac{dN_i}{dt} &= N_i \sum_\alpha (u_{i\alpha}(R_{\alpha}) w_{i\alpha}) - m_i \\
+    \frac{dR_\alpha}{dt} &= F_{\alpha} (R_{\alpha}) - \sum_i (N_i u_{i\alpha}(R_{\alpha})),
+\end{align*}
+where $u_{i\alpha}$ controls the uptake of the resource by the consumer, or how quickly consumer $i$ consumes resource $\alpha$ per unit biomass. This can vary with the concentration of the resource, as it can saturate \cite{AdaptiveStrategies}. $w_{i\alpha}$ is the biomass *yield* that resource $\alpha$ provides consumer $i$, and controls the proportion between resource $\alpha$ consumed and biomass added to consumer $i$. $m_i$ is the natural mortality rate of consumer $i$. $F_{\alpha}$ is the function that controls the replenishment of resource $\alpha$ in the absence of consumers.
 
 \par The zoo of parameters and associated dimensions can be disorienting. We will provide a sort of index here of the parameters we will use in our model, and then we will detail the way each fits into our model.
 
