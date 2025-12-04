@@ -57,7 +57,7 @@ Yeast undergoes complex interactions with the other ingredients in bread dough. 
     \dot{y} &= -\rho_5 xy - \rho_6 yz - \rho_7 y \\
     \dot{z} &= \rho_8 xz + \rho_9 yz - \rho_{10} z,
 \end{align*}
-where $x(t)$, $y(t)$, and $z(t)$ describe yeast biomass concentration, glucose consumption, and ethanol production respectively \cite{mechanistic}. Each $\rho_k$ value depicts a specific constant related to a specific part of the fermentation process. The plotted solution for this model is given in \ref{fig:images/km_mechanistic.png}.
+where $x(t)$, $y(t)$, and $z(t)$ describe yeast biomass concentration, glucose consumption, and ethanol production respectively \cite{mechanistic}. Each $\rho_k$ value depicts a specific constant related to a specific part of the fermentation process. The plotted solution for this model is given in Figure \ref{fig:images/km_mechanistic.png}.
 
 \begin{figure}[h]
 \begin{center}
@@ -98,7 +98,7 @@ Similarly, the yeast growth and fermentation are based on growth rates and yield
     \dot{S} &= -\frac{1}{Y_{X/S}} \dot{Y} \\
     \dot{P} &= Y_{P/S} (-\dot{S}),
 \end{align*}
-where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_{P/S}$ denotes the product yield of yeast per gram of sugar. The plot of the solution is given in \ref{fig:monod_categorical}.
+where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_{P/S}$ denotes the product yield of yeast per gram of sugar. The plot of the solution is given in Figure \ref{fig:monod_categorical}.
 
 \begin{figure}[h]
     \centering
@@ -152,24 +152,24 @@ $c_O$ & $L / g_Yh$ & Oxygen uptake \\
 \subsection*{Uptake}
 \par Uptake describes the rate at which the consumer metabolizes each resource, and is a function of the available amount of the resource. It is often modeled with a Monod equation, as previously discussed. We modeled the sugar uptake as a function of S using the Monod equation.
 $$u_S(S) = c_S \frac{S}{K_S \cdot S}$$
-\par See \ref{tab:param_index} for an explanation of each term. Thus the sugar uptake climbs quickly when below half saturation, and then grows more slowly past that point.
+\par See Table \ref{tab:param_index} for an explanation of each term. Thus the sugar uptake climbs quickly when below half saturation, and then grows more slowly past that point.
 \par Because the amount of Oxygen starts low and thus its uptake varies little, we chose to control it with just a constant.
 $$u_O(O) = c_O O$$
 
 \subsection*{Decrease and Replenishment of Resources}
-\par As no sugar is ordinarily added to the loaf, the sugar present is tied up in the flour. As discussed in a previous section, the sugar becomes available as more complex molecules are broken down--it replenishes logistically. Therefore the change in sugar equation becomes
+\par As no sugar is ordinarily added to the loaf, the sugar present is contained in the flour. As discussed in a previous section, the sugar replenishes logistically as more complex molecules break down. Therefore $\frac{dS}{dt}$ becomes
 $$\frac{dS}{dt} = r_S S \left(1 - \frac{S}{P_S}\right) - c_S Y S$$
-See \ref{tab:param_index} for an explanation of each term.  
+See Table \ref{tab:param_index} for an explanation of each term.  
 
-\par Since oxygen is not replenished, its change equation has only a consumption term.
-$$\frac{dO}{dt} = -c_O O Y$$
+\par Since oxygen is not replenished, its change equation has only a consumption term:
+$$\frac{dO}{dt} = -c_O O Y.$$
 
 \subsection*{Yield}
-\par Additionally, the biomass yield sugar provides yeast varies with the amount of oxygen available. Our model should reflect both aerobic and anaerobic metabolism of sugar. We want to model a smooth switch between aerobic and anaerobic metabolism. We accomplish this via a switching function, which we name $f$ in our model.
-$$f(O) = \frac{O}{K_O + O}$$
-\par See \ref{tab:param_index} for details about the terms. The full effective yield term, which controls the yield that sugar provides the yeast for a given amount of oxygen, is the following.
-$$ w_S^{eff} = [w_S^{ana}+(w_S^{aer}-w_S^{ana})f(O)] $$
-\par Thus, when $O \gg K_O$, $f(O) \approx 1$, and $w_S^{eff} \approx w_S^{aer}$ indicating fully aerobic yield. Likewise, when $O \ll K_O$, $f(O) \approx 0$, and $w_S^{eff} \approx w_S^ana$, indicating fully anaerobic yield. 
+\par Additionally, the biomass that sugar provides yeast varies with the amount of oxygen available. Our model should reflect both aerobic and anaerobic metabolism of sugar. We want to model a smooth switch between aerobic and anaerobic metabolism. We accomplish this via a switching function, which we name $f$ in our model:
+$$f(O) = \frac{O}{K_O + O}.$$
+\par See Table \ref{tab:param_index} for details about the terms. The full effective yield term, which controls the yield that sugar provides the yeast for a given amount of oxygen, is the following:
+$$ w_S^{eff} = [w_S^{ana}+(w_S^{aer}-w_S^{ana})f(O)].$$
+\par Thus, when $O \gg K_O$, $f(O) \approx 1$, and $w_S^{eff} \approx w_S^{aer}$ indicating fully aerobic yield. Likewise, when $O \ll K_O$, $f(O) \approx 0$, and $w_S^{eff} \approx w_S^{ana}$, indicating a fully anaerobic yield. 
 
 \subsection*{Byproduct}
 \par The $CO_2$ created during this process exists outside the consumer resource relationship, and is simply stoichiometrically related to the rate of anaerobic sugar consumption. By straightforward rearrangement of the $f(O)$ equation given above, and since in the anaerobic reaction one gram of sugar becomes 0.0111 mols of $\ce{CO_2}$, the instantaneous rate of production of $\ce{CO_2}$ in mols per liter is given by  
@@ -196,25 +196,26 @@ $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y \cdot 0.0111$$
 \label{fig:images/simple_compartmental.png}
 \end{figure}
 
-\par The simple model fit the real-world data \cite{mechanistic} surprisingly well \ref{fig:images/simple_compartmental.png}.
-
-\par This model, which was by far the simplest of the models we implemented, performed surprisingly well quantitatively. It sadly does not incorporate the two-phase structure that some of the other models do, but each category's graph looks similar to the data it trained on.
+\par The simple model fit the real-world data \cite{mechanistic} surprisingly well in Figure \ref{fig:images/simple_compartmental.png}. This model sadly does not incorporate the two-phase structure that some of the other models do, but each category's graph looks similar to the data it trained on.
 
 \par The constants of this model, which were computed using SciPy, were estimated to equal
 \[
-\alpha = 0.1128 \quad \beta = 0.0178 \quad \gamma = 0.010 \quad \delta = 0.0475.
+\alpha = 0.1128, \quad \beta = 0.0178, \quad \gamma = 0.010, \quad \delta = 0.0475.
 \]
 
-\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanol) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta},$ which represents sugar consumption by yeast divided by ethanol production, should roughly equal $\frac{180.156}{2 \cdot 46.069}.$ We see that we have:
+\par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate just with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanol) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta},$ which represents sugar consumption by yeast divided by ethanol production, should roughly equal $\frac{180.156}{2 \cdot 46.069}.$ We see that we have:
 \[
-\frac{\alpha}{\delta} = 2.375 \quad \frac{180.156}{2 \cdot 46.069} = 1.955.
+\frac{\alpha}{\delta} = 2.375 \quad \frac{180.156}{2 \cdot 46.069} = 1.955,
 \]
 yielding a $21\%$ error compared to the true value. For being such a simple model, getting a result that is this near to matching the underlying chemistry is incredible.
 
 \subsection*{Compartmental Model with Monod Equation}
-We similarly fit the compartmental to the data \cite{mechanistic}. We were able to assimilate the experimental data with the model to solve for the coefficients used in the model. Using Scipy, we were able to solve that 
-\[ \mu_{\text{max}} = 0.1685 \quad K_S = 0.0996 \quad Y_{X/S} = 0.1768 \quad Y_{P/S} = 0.7015. \] 
-The model with these coefficients and initial values taken from the data is plotted alongside the data in \ref{fig:images/monod_modeling.png}.
+We similarly fit the compartmental to the data \cite{mechanistic}. Using Scipy, we were able to estimate the coefficients as
+
+\[ \mu_{\text{max}} = 0.1685 \quad K_S = 0.0996 \quad Y_{X/S} = 0.1768 \quad Y_{P/S} = 0.7015.
+\]
+
+The model with these coefficients and initial values taken from the data is plotted alongside the data in Figure \ref{fig:images/monod_modeling.png}.
 
 \begin{figure}[h]
 \begin{center}
@@ -226,7 +227,7 @@ The model with these coefficients and initial values taken from the data is plot
 An experimental value for the product yield of yeast $Y_{P/S}$ is 0.5 g of weight per gram of yeast \cite{yeast_chicken}, which our model was able to get a reasonable approximation for.
 
 \subsection*{MacArthur Consumer-Resource}
-Unfortunately we were unable to find real-world data which we could use to evaluate this model quantitatively. Instead we will pick reasonable parameter values and evaluate the results qualitatively. Using parameters in the ranges in \ref{tab:param_vals}, we obtain \ref{fig:mcrm}.
+Unfortunately we were unable to find real-world data which we could use to evaluate this model quantitatively. Instead we will pick reasonable parameter values and evaluate the results qualitatively. Using parameters in the ranges in Table \ref{tab:param_vals}, we obtain Figure~\ref{fig:mcrm}.
 
 \begin{table}[h!]
 \centering
@@ -260,17 +261,17 @@ $c_O$ & 0.1 & $L / g_Y h$ & \cite{o2_uptake} \\
     \label{fig:mcrm}
 \end{figure}
 
-\par Using these parameter values and these initial values, we can visually inspect the resulting prediction made by this model. There is a clear aerobic phase where yeast concentration encreases very quickly, before switching to anaerobic when oxygen is depleted. $CO_2$ concentration also rises until sugar is depleted and the anaerobic phase finishes. However, the model reaches equilibrium in about 55 minutes, while in reality yeast continues to grow for much longer. 
+\par Using these parameter values and these initial values, we can visually inspect the resulting prediction made by this model. There is a clear aerobic phase where yeast concentration increases very quickly, before switching to anaerobic when oxygen is depleted. $\ce{CO_2}$ concentration also rises until sugar is depleted and the anaerobic phase finishes. However, the model reaches equilibrium in about 55 minutes, while in reality yeast continues to grow for much longer. 
 
 %%Fourth Section
 \section{Analysis/Conclusions} We attempted to model the dynamics present in a rising loaf of bread dough using three models: A simple compartmental model, a compartmental model with a Monod Equation, and a MacArthur Consumer-Resource model, ordered in terms of complexity. 
 
 \subsection*{Appropriateness of models}
-The two compartmental models captured the changing concentrations of their assumed dynamics with surprising accuracy, considering their simplicity. The fitted simple compartmental model yielded a mere 21\% error for the glucose consumed to ethanol produced ratio. However, the assumed dynamics are quite a far cry from the dynamics of a rising loaf of bread dough. The most egregious simplifiying assumption was that all sugar is initially available and does not replenish. Fortunately experimental data that matched the assumptions validated these models nicely.
+The two compartmental models captured the changing concentrations of their assumed dynamics with surprising accuracy, considering their simplicity. The fitted simple compartmental model yielded a mere 21\% error for the glucose consumed to ethanol produced ratio. However, the assumed dynamics are far from the true dynamics of a rising loaf of bread dough. The most egregious simplifiying assumption was that all sugar is initially available and does not replenish. Fortunately experimental data that matched the assumptions validated these models nicely.
 
-\par The most complex model we attempted to use, the MacArthur Consumer-Resource model, corrected the previous simplifications by including terms to describe 1) a replenishing supply of available sugar, 2) a variable rate of sugar consumption and yield depending on the oxygen supply, and 3) metabolism of oxygen when available. Although we were unable to find or produce experimental data to validate this model, we found it satisfactory qualitatively. The phases of aerobic metabolism, anaerobic metabolism, and equilibrium are each amenable to visual inspections of the figures the model produces.
+\par The most complex model we attempted to use, the MacArthur Consumer-Resource model, corrected the previous simplifications by including terms to describe a replenishing supply of available sugar, a variable rate of sugar consumption and yield depending on the oxygen supply, and metabolism of oxygen when available. Although we were unable to find or produce experimental data to validate this model, we found it satisfactory qualitatively. The phases of aerobic metabolism, anaerobic metabolism, and equilibrium are each amenable to visual inspections of the figures the model produces.
 
-\subsection*{Potential improvements} Our model which most closely approximates the dynamics of fermentation in a loaf of bread dough, the MacArthur Consumer-Resource model, has several shortcomings. The most glaring is that it is not fit to experimental data, and its parameters' true values are not verified to the desired degree of accuracy. Furthermore, the model does not capture enviornmental factors such as temperature, humidity, or pressure, which are known to affect the rate of fermentation. Parameters and functions that describe uptake, yield, resource replenishment, and maintenance each in reality depend on such enviornmental factors as these. Similarly, we do not consider the effects of key added ingredients such as salt (which is known to inhibit yeast growth), or of elective added ingredients such as jalapeño and cheddar.
+\subsection*{Potential improvements} Our model which most closely approximates the dynamics of fermentation in a loaf of bread dough, the MacArthur Consumer-Resource model, has several shortcomings. The most glaring is that it is not fit to experimental data, and its parameters' true values are not verified to the desired degree of accuracy. Furthermore, the model does not capture enviornmental factors such as temperature, humidity, or pressure, which are known to affect the rate of fermentation. Parameters and functions that describe uptake, yield, resource replenishment, and maintenance depend on such enviornmental factors as these. Similarly, we do not consider the effects of key added ingredients such as salt (which inhibits yeast growth), or of elective added ingredients such as jalapeño and cheddar.
 
 \par Another shortcoming is the limitation of bread making practices represented in even our broadest assumptions. We do not consider a double-rising period or the effect of several intermediate "stretch and folds". Bread makers  report that small changes in the mixing, kneading, and intermediate checkpoints lead to large changes in the results of the loaf. Nonetheless, these effects are not captured in our model.
 
