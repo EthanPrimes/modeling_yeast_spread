@@ -115,9 +115,10 @@ where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_
 \par The general form of the MacArthur consumer-resource model for S species of consumers with concentrations $N_i$ for $i \in {1, 2, ..., S}$, and M resources with concentrations $R_{\alpha}$ for $\alpha \in {1, 2, ..., M}$ is
 \begin{align*}
     \frac{dN_i}{dt} &= N_i \sum_\alpha (u_{i\alpha}(R_{\alpha}) w_{i\alpha}) - m_i \\
-    \frac{dR_\alpha}{dt} &= F_{\alpha} (R_{\alpha}) - \sum_i (N_i u_{i\alpha}(R_{\alpha})),
+    \frac{dR_\alpha}{dt} &= F_{\alpha} (R_{\alpha}) - \sum_i (N_i u_{i\alpha}(R_{\alpha}))
 \end{align*}
-where $u_{i\alpha}$ controls the uptake of the resource by the consumer, or how quickly consumer $i$ consumes resource $\alpha$ per unit biomass. This can vary with the concentration of the resource, as it can saturate \cite{AdaptiveStrategies}. $w_{i\alpha}$ is the biomass *yield* that resource $\alpha$ provides consumer $i$, and controls the proportion between resource $\alpha$ consumed and biomass added to consumer $i$. $m_i$ is the natural mortality rate of consumer $i$. $F_{\alpha}$ is the function that controls the replenishment of resource $\alpha$ in the absence of consumers.
+
+\par $u_{i\alpha}$ controls the uptake of the resource by the consumer, or how quickly consumer $i$ consumes resource $\alpha$ per unit biomass. This can vary with the concentration of the resource, as it can saturate \cite{AdaptiveStrategies}. $w_{i\alpha}$ is the biomass \textit{yield} that resource $\alpha$ provides consumer $i$, and controls the proportion between resource $\alpha$ consumed and biomass added to consumer $i$. $m_i$ is the natural mortality rate of consumer $i$. $F_{\alpha}$ is the function that controls the replenishment of resource $\alpha$ in the absence of consumers.
 
 \par The zoo of parameters and associated dimensions can be disorienting. We will provide a sort of index here of the parameters we will use in our model, and then we will detail the way each fits into our model.
 
@@ -157,7 +158,7 @@ $$u_O(O) = c_O O$$
 
 \subsection*{Decrease and Replenishment of Resources}
 \par As no sugar is ordinarily added to the loaf, the sugar present is tied up in the flour. As discussed in a previous section, the sugar becomes available as more complex molecules are broken down--it replenishes logistically. Therefore the change in sugar equation becomes
-$$\frac{dS}{dt} = r_S S (1 - \frac{S}{P_S}) - c_S Y S$$
+$$\frac{dS}{dt} = r_S S \left(1 - \frac{S}{P_S}\right) - c_S Y S$$
 See \ref{tab:param_index} for an explanation of each term.  
 
 \par Since oxygen is not replenished, its change equation has only a consumption term.
@@ -179,7 +180,7 @@ $$(1 - f(O))u_S(S)Y \cdot 0.0111$$
 
 $$\frac{dY}{dt} = Y \bigg[w_O c_O O + [w_S^{ana}+(w_S^{aer}-w_S^{ana})f(O)]u_S(S) - m\bigg]$$
 $$\frac{dO}{dt} = -c_O O Y$$
-$$\frac{dS}{dt} = r_S S (1 - \frac{S}{P_S}) - c_S Y S$$
+$$\frac{dS}{dt} = r_S S \left(1 - \frac{S}{P_S}\right) - c_S Y S$$
 $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y \cdot 0.0111$$
 
 %% Third Section
@@ -201,12 +202,12 @@ $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y \cdot 0.0111$$
 
 \par The constants of this model, which were computed using SciPy, were estimated to equal
 \[
-\alpha = 0.1128, \beta = 0.0178, \gamma = 0.010, \delta = 0.0475.
+\alpha = 0.1128 \quad \beta = 0.0178 \quad \gamma = 0.010 \quad \delta = 0.0475.
 \]
 
 \par The constant $\gamma$ controls the death rate of yeasts, and is therefore not possible to estimate with stoichiometry. Similarly, the rate at which sugar is eaten is hard to estimate. However, the ratio of sugar eating to byproducts (namely, ethanol) produced is something we can estimate. We know that yeast consumes 1 molecule of glucose to produce 2 molecules of ethanol during its anaerobic phase. Since glucose weighs $180.156$ grams / mol, and ethanol weighs $46.069,$ \cite{molar_weights} we see that the ratio $\frac{\alpha}{\delta},$ which represents sugar consumption by yeast divided by ethanol production, should roughly equal $\frac{180.156}{2 \cdot 46.069}.$ We see that we have:
 \[
-\frac{\alpha}{\delta} = 2.375, \;\; \frac{180.156}{2 \cdot 46.069} = 1.955,
+\frac{\alpha}{\delta} = 2.375 \quad \frac{180.156}{2 \cdot 46.069} = 1.955.
 \]
 yielding a $21\%$ error compared to the true value. For being such a simple model, getting a result that is this near to matching the underlying chemistry is incredible.
 
@@ -219,7 +220,7 @@ The model with these coefficients and initial values taken from the data is plot
 \begin{center}
 \includegraphics[scale=0.5]{images/monod_modeling.png}
 \end{center}
-\caption{The fitted categorical model plotted alongside the experimental data. \cite{mechanistic}}
+\caption{The fitted monod categorical model plotted alongside the experimental data. \cite{mechanistic}}
 \label{fig:images/monod_modeling.png}
 \end{figure}
 An experimental value for the product yield of yeast $Y_{P/S}$ is 0.5 g of weight per gram of yeast \cite{yeast_chicken}, which our model was able to get a reasonable approximation for.
@@ -269,7 +270,7 @@ The two compartmental models captured the changing concentrations of their assum
 
 \par The most complex model we attempted to use, the MacArthur Consumer-Resource model, corrected the previous simplifications by including terms to describe 1) a replenishing supply of available sugar, 2) a variable rate of sugar consumption and yield depending on the oxygen supply, and 3) metabolism of oxygen when available. Although we were unable to find or produce experimental data to validate this model, we found it satisfactory qualitatively. The phases of aerobic metabolism, anaerobic metabolism, and equilibrium are each amenable to visual inspections of the figures the model produces.
 
-\subsection{Potential improvements} Our model which most closely approximates the dynamics of fermentation in a loaf of bread dough, the MacArthur Consumer-Resource model, has several shortcomings. The most glaring is that it is not fit to experimental data, and its parameters' true values are not verified to the desired degree of accuracy. Furthermore, the model does not capture enviornmental factors such as temperature, humidity, or pressure, which are known to affect the rate of fermentation. Parameters and functions that describe uptake, yield, resource replenishment, and maintenance each in reality depend on such enviornmental factors as these. Similarly, we do not consider the effects of key added ingredients such as salt (which is known to inhibit yeast growth), or of elective added ingredients such as jalapeño and cheddar.
+\subsection*{Potential improvements} Our model which most closely approximates the dynamics of fermentation in a loaf of bread dough, the MacArthur Consumer-Resource model, has several shortcomings. The most glaring is that it is not fit to experimental data, and its parameters' true values are not verified to the desired degree of accuracy. Furthermore, the model does not capture enviornmental factors such as temperature, humidity, or pressure, which are known to affect the rate of fermentation. Parameters and functions that describe uptake, yield, resource replenishment, and maintenance each in reality depend on such enviornmental factors as these. Similarly, we do not consider the effects of key added ingredients such as salt (which is known to inhibit yeast growth), or of elective added ingredients such as jalapeño and cheddar.
 
 \par Another shortcoming is the limitation of bread making practices represented in even our broadest assumptions. We do not consider a double-rising period or the effect of several intermediate "stretch and folds". Bread makers  report that small changes in the mixing, kneading, and intermediate checkpoints lead to large changes in the results of the loaf. Nonetheless, these effects are not captured in our model.
 
@@ -278,8 +279,6 @@ The two compartmental models captured the changing concentrations of their assum
 \subsection*{Impact} The impact of an accurate bread-rising model would be profound and far-reaching. Bread is a worldwide staple, and is much beloved by nearly all cultures. An accurate model would create tremendous accessibility consistently higher quality bread, exactly as desired by its bakers, despite the complexity.
 
 \par Such a day is yet beyond us. Using the models we produced, by fiddling with initial values, a user can easily see the effects of changing the initial concentrations of yeast, sugar, and oxygen, and use these initial concentrations to create the desired effect while baking bread.
-
-\par Much work remains to be done.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Bibliography below
