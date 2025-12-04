@@ -26,7 +26,7 @@
 \date{19 November 2025} % or use \today
 
 \begin{abstract}
-Yeast undergoes complex interactions with the other ingredients in bread dough. We sought to determine if we could use an understanding of the chemical reactions yeast undergoes to build accurate models of sugar consumption, yeast growth, and byproduct production. Similarly, we examined the results of each model to see how well they qualitatively fit our expectations. In this paper we build four models that estimate the lifecycle of yeast in bread. We compare the results to data from other papers and observe that our models performed surprisingly well.
+Yeast undergoes complex interactions with the other ingredients in bread dough. We sought to determine if we could use an understanding of the chemical reactions yeast undergoes to build accurate models of sugar consumption, yeast growth, and byproduct production. Similarly, we examined the results of each model to see how well they qualitatively fit our expectations. In this paper we build three models that estimate the lifecycle of yeast in bread. We compare the results to data from other papers and observe that our models performed surprisingly well.
 \end{abstract}
 
 \maketitle % this actually makes the title
@@ -73,12 +73,30 @@ Yeast undergoes complex interactions with the other ingredients in bread dough. 
     \dot{y} &= -\rho_5 xy - \rho_6 yz - \rho_7 y \\
     \dot{z} &= \rho_8 xz + \rho_9 yz - \rho_{10} z,
 \end{align*}
+<<<<<<< HEAD
 where $x(t)$, $y(t)$, and $z(t)$ describe yeast biomass concentration, glucose consumption, and ethanol production respectively \cite{mechanistic}. Each $rho_k$ value depicts a specific constant related to a specific part of the fermentation process. The plotted solution for this model is given in \ref{fig:images/km_mechanistic.png}
+=======
+where $x(t)$, $y(t)$, and $z(t)$ describe yeast biomass concentration, glucose consumption, and ethanol production respectively. \cite{mechanistic} Each $\rho_k$ value depicts a specific constant related to a specific part of the fermentation process. The plotted solution for this model is given in \ref{fig:images/km_mechanistic.png}
+\begin{figure}[htb]
+\begin{center}
+    \includegraphics[scale=0.5]{km_mechanistic.png}
+\end{center}
+    \caption{A KM mechanistic model plot.}
+    \label{fig:images/km_mechanistic.png}
+\end{figure}
+We plot the solution for the KM Mechanistic model (\cite{mechanistic}) for $t \in [0, 5]$. Values of $\rho_k$ as given in the paper and we use initial conditions $(x_0, y_0, z_0) = (5, 200, 0.5)$ (measured in g/L).
+>>>>>>> d8be519d937b71a6f46f6169dc1a9b331bcbc625
 
 %% Second Section 
 \section{Modeling}
 
+<<<<<<< HEAD
 \par In this section we go over the four models we built in detail.
+=======
+% The primary aspect of the project is the modeling of the chosen phenomenon. If your group's repeated attempts resulted in abject failure, or your group succeeded, detail them in this section. Be sure to account for the various attempted models and why they were not appropriate. Include numerical simulations for each attempted model. Reference figures and plots, like Figure~\ref{fig:MeanSquaredError}.
+
+\par In this section we go over the three models we built in detail.
+>>>>>>> d8be519d937b71a6f46f6169dc1a9b331bcbc625
 
 \subsection*{Simple Compartmental Model}
 
@@ -113,6 +131,7 @@ where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_
 \end{figure}
 We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units g/L). We also suppose that $K_s = 0.6$, $Y_{X/S} = 0.1$, and $Y_{P/S} = 1$. 
 
+<<<<<<< HEAD
 \subsection*{KM Mechanistic}
 We plot the solution for the KM Mechanistic model (\cite{mechanistic}) for $t \in [0, 5]$. Values of $\rho_k$ as given in the paper and we use initial conditions $(x_0, y_0, z_0) = (5, 200, 0.5)$ (measured in g/L).
 \begin{figure}[htb]
@@ -123,6 +142,8 @@ We plot the solution for the KM Mechanistic model (\cite{mechanistic}) for $t \i
 \label{fig:images/km_mechanistic.png}
 \end{figure}
 
+=======
+>>>>>>> d8be519d937b71a6f46f6169dc1a9b331bcbc625
 \subsection*{MacArthur Consumer-Resource}
 \par The previous models make the following simplifying assumptions: 1) That all sugar is initially available to be consumed by yeast and only decreases over time, 2) that the rate and efficacy of yeast's consumption of sugar depends only on the respective amounts of yeast and sugar, and 3) that oxygen is not a resource on which yeast feeds.
 
@@ -152,12 +173,12 @@ $K_O$ & $mmol / L$ & Half saturation for Oxygen \\
 $K_S$ & $GGE / L$ & Half saturation for Sugar \\
 $P_S$ & $g_S / L$ & Carrying capacity for sugar \\
 $r_S$ & $1 / h$ & Sugar logistic growth rate \\
-$f(O)$ & $dimensionless$ & Oxygen availibility switch \\
+$f(O)$ & dimensionless & Oxygen availibility switch \\
 $w_S^{aer}$ & $g_Y / g_S$ & aerobic ATP yield, very efficient \\
 $w_S^{ana}$ & $g_Y / g_S$ & anaerobic ATP yield, inefficient \\
 $w_O$ & $g_Y / mmol$ & Oxygen yield \\
 $c_S$ &  $L / g_Yh$ & Maximum Sugar uptake \\
-$u_S$ & $dimensionless$ & Instantaneous uptake of sugar \\
+$u_S$ & dimensionless & Instantaneous uptake of sugar \\
 $c_O$ & $L / g_Yh$ & Oxygen uptake \\
 \hline
 \end{tabular}
@@ -174,8 +195,13 @@ $$u_O(O) = c_O O$$
 
 \subsection*{Decrease and Replenishment of Resources}
 \par As no sugar is ordinarily added to the loaf, the sugar present is tied up in the flour. As discussed in a previous section, the sugar becomes available as more complex molecules are broken down--it replenishes logistically. Therefore the change in sugar equation becomes
+<<<<<<< HEAD
 $$\frac{dS}{dt} = r_S S (1 - \frac{S}{P_S}) - c_S Y S$$
 See \ref{tab:param_index} for an explanation of each term.  
+=======
+$$\frac{dS}{dt} = r_S S \left(1 - \frac{S}{P_S}\right) - c_S Y S$$
+See Table~\ref{tab:param_index} for an explanation of each term.  
+>>>>>>> d8be519d937b71a6f46f6169dc1a9b331bcbc625
 
 \par Since oxygen is not replenished, its change equation has only a consumption term.
 $$\frac{dO}{dt} = -c_O O Y$$
@@ -230,10 +256,17 @@ yielding a $21\%$ error compared to the true value. For being such a simple mode
 % \par Similarly we can compute $\frac{\beta}{\alpha} = 0.1578.$ This is a ratio of how many new yeast cells are produced compared to a single interaction of yeast consuming glucose.
 
 \subsection*{Compartmental Model with Monod Equation}
-
-
-\subsection*{KM Mechanistic Model}
-
+We similarly fit the compartmental to the data \cite{mechanistic}. We were able to assimilate the experimental data with the model to solve for the coefficients used in the model. Using Scipy, we were able to solve that 
+\[ \mu_{\text{max}} = 0.1685 \quad K_S = 0.0996 \quad Y_{X/S} = 0.1768 \quad Y_{P/S} = 0.7015. \] 
+The model with these coefficients and initial values taken from the data is plotted alongside the data in \ref{fig:images/monod_modeling.png}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{images/monod_modeling.png}
+\end{center}
+\caption{The fitted categorical model plotted alongside the experimental data. \cite{mechanistic}}
+\label{fig:images/monod_modeling.png}
+\end{figure}
+An experimental value for the product yield of yeast $Y_{P/S}$ is 0.5 g of weight per gram of yeast \cite{yeast_chicken}, which our model was able to get a reasonable approximation for.
 
 \subsection*{MacArthur Consumer-Resource}
 Unfortunately we were unable to find real-world data which we could use to evaluate this model quantitatively. Instead we will pick reasonable parameter values and evaluate the results qualitatively. Using parameters in the ranges in \ref{tab:param_vals}, we obtain \ref{fig:mcrm}.
@@ -273,7 +306,7 @@ $c_O$ & 0.1 & $L / g_Y h$ & \cite{o2_uptake} \\
 \par Using these parameter values and these initial values, we can visually inspect the resulting prediction made by this model. There is a clear aerobic phase where yeast concentration encreases very quickly, before switching to anaerobic when oxygen is depleted. $CO_2$ concentration also rises until sugar is depleted and the anaerobic phase finishes. However, the model reaches equilibrium in about 55 minutes, while in reality yeast continues to grow for much longer. 
 
 %%Fourth Section
-\section{Analysis/Conclusions} We attempted to model the dynamics present in a rising loaf of bread dough using four models: A simple compartmental model, a compartnmental model with a Monod Equation, a KM Mechanistic Model, and a MacArthur Consumer-Resource model, ordered in terms of complexity. 
+\section{Analysis/Conclusions} We attempted to model the dynamics present in a rising loaf of bread dough using three models: A simple compartmental model, a compartmental model with a Monod Equation, and a MacArthur Consumer-Resource model, ordered in terms of complexity. 
 
 \subsection*{Appropriateness of models}
 The two compartmental models captured the changing concentrations of their assumed dynamics with surprising accuracy, considering their simplicity. The fitted simple compartmental model yielded a mere 21\% error for the glucose consumed to ethanol produced ratio. However, the assumed dynamics are quite a far cry from the dynamics of a rising loaf of bread dough. The most egregious simplifiying assumption was that all sugar is initially available and does not replenish. Fortunately experimental data that matched the assumptions validated these models nicely.
