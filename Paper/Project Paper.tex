@@ -149,7 +149,7 @@ $c_O$ & $L / g_Yh$ & Oxygen uptake \\
 \label{tab:param_index}
 \end{table}
 
-\subsection*{Uptake}
+\subsubsection*{Uptake}
 \par Uptake describes the rate at which the consumer metabolizes each resource, and is a function of the available amount of the resource. It is often modeled with a Monod equation, as previously discussed. We modeled the sugar uptake as a function of S using the Monod equation.
 $$u_S(S) = c_S \frac{S}{K_S \cdot S}$$
 \par See Table \ref{tab:param_index} for an explanation of each term. Thus the sugar uptake climbs quickly when below half saturation, and then grows more slowly past that point.
@@ -164,18 +164,18 @@ See Table \ref{tab:param_index} for an explanation of each term.
 \par Since oxygen is not replenished, its change equation has only a consumption term:
 $$\frac{dO}{dt} = -c_O O Y.$$
 
-\subsection*{Yield}
-\par Additionally, the biomass that sugar provides yeast varies with the amount of oxygen available. Our model should reflect both aerobic and anaerobic metabolism of sugar. We want to model a smooth switch between aerobic and anaerobic metabolism. We accomplish this via a switching function, which we name $f$ in our model:
-$$f(O) = \frac{O}{K_O + O}.$$
-\par See Table \ref{tab:param_index} for details about the terms. The full effective yield term, which controls the yield that sugar provides the yeast for a given amount of oxygen, is the following:
-$$ w_S^{eff} = [w_S^{ana}+(w_S^{aer}-w_S^{ana})f(O)].$$
-\par Thus, when $O \gg K_O$, $f(O) \approx 1$, and $w_S^{eff} \approx w_S^{aer}$ indicating fully aerobic yield. Likewise, when $O \ll K_O$, $f(O) \approx 0$, and $w_S^{eff} \approx w_S^{ana}$, indicating a fully anaerobic yield. 
+\subsubsection*{Yield}
+\par Additionally, the biomass yield sugar provides yeast varies with the amount of oxygen available. Our model should reflect both aerobic and anaerobic metabolism of sugar. We want to model a smooth switch between aerobic and anaerobic metabolism. We accomplish this via a switching function, which we name $f$ in our model.
+$$f(O) = \frac{O}{K_O + O}$$
+\par See \ref{tab:param_index} for details about the terms. The full effective yield term, which controls the yield that sugar provides the yeast for a given amount of oxygen, is the following.
+$$ w_S^{eff} = [w_S^{ana}+(w_S^{aer}-w_S^{ana})f(O)] $$
+\par Thus, when $O \gg K_O$, $f(O) \approx 1$, and $w_S^{eff} \approx w_S^{aer}$ indicating fully aerobic yield. Likewise, when $O \ll K_O$, $f(O) \approx 0$, and $w_S^{eff} \approx w_S^ana$, indicating fully anaerobic yield. 
 
-\subsection*{Byproduct}
+\subsubsection*{Byproduct}
 \par The $CO_2$ created during this process exists outside the consumer resource relationship, and is simply stoichiometrically related to the rate of anaerobic sugar consumption. By straightforward rearrangement of the $f(O)$ equation given above, and since in the anaerobic reaction one gram of sugar becomes 0.0111 mols of $\ce{CO_2}$, the instantaneous rate of production of $\ce{CO_2}$ in mols per liter is given by  
 $$(1 - f(O))u_S(S)Y \cdot 0.0111$$
 
-\subsection*{Final Form}
+\subsubsection*{Final Form}
 \par By assembling these pieces into the general MacArthur consumer resource model found above, we have the following ODE.
 
 $$\frac{dY}{dt} = Y \bigg[w_O c_O O + [w_S^{ana}+(w_S^{aer}-w_S^{ana})f(O)]u_S(S) - m\bigg]$$
