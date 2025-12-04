@@ -38,16 +38,6 @@ Yeast undergoes complex interactions with the other ingredients in bread dough. 
 
 \par Every breadmaker has noticed that small changes in initial dough conditions can lead to wide variations in the quality of the baked bread. By having a good model for how yeast interacts with the other ingredients in bread, we will be able to better understand the breadmaking process and how to optimize initial conditions.
 
-% \begin{figure}[htb]
-% \begin{center} %Put your images in a figure like this
-% \includegraphics[width=\textwidth]{Myfig.pdf} % Better to make them pdfs than png or gif or jpeg
-% \end{center}
-% \caption{Plots should be high resolution (pdf 300dpi), uncluttered, a reasonable size, and easily readable and understandable.  All figures should have a complete caption that helps the reader make sense of the figure even if they haven't read the paper yet. Here is an example: This figure shows the risk or mean squared error (in black) of for a generic family of regression models as a function of model complexity (the number of free parameters in the model).  The generalized aliasing decomposition shows that the risk is the sum of three parts: Model insufficiency (red), Data insufficiency (green), and Aliasing (blue).  Model insufficiency is monotonically decreasing as a function of complexity, Data insufficiency vanishes when the number of parameters is less than the number of training points (the classical regime), but increases monotonically in the modern regime (where the number of parameters is greater than the number of data points).  Aliasing generally increases up to the interpolation threshold and decreases thereafter, converging to zero almost surely as the number of parameters goes to infinity.  
-% }
-% \label{fig:MeanSquaredError} % for automatic cross referencing
-% \end{figure}
-
-
 \subsection*{The Chemistry of Bread}
 \;
 \par There are four primary ingredients in bread dough: flour, water, salt, and yeast. Flour provides not only the gluten that gives bread its structure, but also contains sugars that the yeast consumes. Salt strengthens the bread dough, making it more elastic.
@@ -73,9 +63,6 @@ Yeast undergoes complex interactions with the other ingredients in bread dough. 
     \dot{y} &= -\rho_5 xy - \rho_6 yz - \rho_7 y \\
     \dot{z} &= \rho_8 xz + \rho_9 yz - \rho_{10} z,
 \end{align*}
-<<<<<<< HEAD
-where $x(t)$, $y(t)$, and $z(t)$ describe yeast biomass concentration, glucose consumption, and ethanol production respectively \cite{mechanistic}. Each $rho_k$ value depicts a specific constant related to a specific part of the fermentation process. The plotted solution for this model is given in \ref{fig:images/km_mechanistic.png}
-=======
 where $x(t)$, $y(t)$, and $z(t)$ describe yeast biomass concentration, glucose consumption, and ethanol production respectively. \cite{mechanistic} Each $\rho_k$ value depicts a specific constant related to a specific part of the fermentation process. The plotted solution for this model is given in \ref{fig:images/km_mechanistic.png}
 \begin{figure}[htb]
 \begin{center}
@@ -85,18 +72,11 @@ where $x(t)$, $y(t)$, and $z(t)$ describe yeast biomass concentration, glucose c
     \label{fig:images/km_mechanistic.png}
 \end{figure}
 We plot the solution for the KM Mechanistic model (\cite{mechanistic}) for $t \in [0, 5]$. Values of $\rho_k$ as given in the paper and we use initial conditions $(x_0, y_0, z_0) = (5, 200, 0.5)$ (measured in g/L).
->>>>>>> d8be519d937b71a6f46f6169dc1a9b331bcbc625
 
 %% Second Section 
 \section{Modeling}
 
-<<<<<<< HEAD
-\par In this section we go over the four models we built in detail.
-=======
-% The primary aspect of the project is the modeling of the chosen phenomenon. If your group's repeated attempts resulted in abject failure, or your group succeeded, detail them in this section. Be sure to account for the various attempted models and why they were not appropriate. Include numerical simulations for each attempted model. Reference figures and plots, like Figure~\ref{fig:MeanSquaredError}.
-
 \par In this section we go over the three models we built in detail.
->>>>>>> d8be519d937b71a6f46f6169dc1a9b331bcbc625
 
 \subsection*{Simple Compartmental Model}
 
@@ -131,19 +111,6 @@ where $Y_{X/S}$ denotes the grams of biomass of yeast per gram of sugar, and $Y_
 \end{figure}
 We use the initial conditions $(Y_0, S_0, P_0) = (0.1, 10, 0)$ (each with units g/L). We also suppose that $K_s = 0.6$, $Y_{X/S} = 0.1$, and $Y_{P/S} = 1$. 
 
-<<<<<<< HEAD
-\subsection*{KM Mechanistic}
-We plot the solution for the KM Mechanistic model (\cite{mechanistic}) for $t \in [0, 5]$. Values of $\rho_k$ as given in the paper and we use initial conditions $(x_0, y_0, z_0) = (5, 200, 0.5)$ (measured in g/L).
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[scale=0.5]{km_mechanistic.png}
-\end{center}
-\caption{A KM mechanistic model plot.}
-\label{fig:images/km_mechanistic.png}
-\end{figure}
-
-=======
->>>>>>> d8be519d937b71a6f46f6169dc1a9b331bcbc625
 \subsection*{MacArthur Consumer-Resource}
 \par The previous models make the following simplifying assumptions: 1) That all sugar is initially available to be consumed by yeast and only decreases over time, 2) that the rate and efficacy of yeast's consumption of sugar depends only on the respective amounts of yeast and sugar, and 3) that oxygen is not a resource on which yeast feeds.
 
@@ -248,8 +215,6 @@ $$\frac{dC}{dt} = (1 - f(O))u_S(S)Y \cdot 0.0111$$
 \]
 yielding a $21\%$ error compared to the true value. For being such a simple model, getting a result that is this near to matching the underlying chemistry is incredible.
 
-% \par Similarly we can compute $\frac{\beta}{\alpha} = 0.1578.$ This is a ratio of how many new yeast cells are produced compared to a single interaction of yeast consuming glucose.
-
 \subsection*{Compartmental Model with Monod Equation}
 We similarly fit the compartmental to the data \cite{mechanistic}. We were able to assimilate the experimental data with the model to solve for the coefficients used in the model. Using Scipy, we were able to solve that 
 \[ \mu_{\text{max}} = 0.1685 \quad K_S = 0.0996 \quad Y_{X/S} = 0.1768 \quad Y_{P/S} = 0.7015. \] 
@@ -319,20 +284,6 @@ The two compartmental models captured the changing concentrations of their assum
 \par Such a day is yet beyond us. Using the models we produced, by fiddling with initial values, a user can easily see the effects of changing the initial concentrations of yeast, sugar, and oxygen, and use these initial concentrations to create the desired effect while baking bread.
 
 \par Much work remains to be done.
-
-
-% \subsection*{Simple Compartmental Model}
-
-
-% \subsection*{Compartmental Model with Monod Equation}
-
-
-% \subsection*{KM Mechanistic Model}
-
-
-% \subsection*{MacArthur Consumer-Resource}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Bibliography below
