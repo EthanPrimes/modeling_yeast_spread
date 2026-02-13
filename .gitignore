@@ -9,7 +9,6 @@ Paper/*.fls
 Paper/*.log
 Paper/*.out
 Paper/*.synctex.gz
-Paper/*.pdf
 Paper/*.bbl
 Paper/*.blg
 
